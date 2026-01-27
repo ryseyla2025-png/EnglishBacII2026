@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English BacII Preparation</title>
     
+    <!-- 
+      OFFLINE USE INSTRUCTIONS:
+      To use this file completely offline without any internet connection:
+      1. Download the following .js files and save them in the same folder as this html file:
+         - react.development.js
+         - react-dom.development.js
+         - babel.min.js
+         - tailwind.js (or compile your own css)
+      2. Change the 'src' attributes below to point to your local files (e.g., src="react.development.js").
+    -->
+
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -18,20 +29,21 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts (with offline fallback in CSS) -->
     <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* Base Global Styles */
         body {
-            font-family: 'Poppins', 'Battambang', sans-serif;
+            font-family: 'Poppins', 'Battambang', sans-serif, Arial, Helvetica; /* Fallback fonts added */
             background-color: #f3f4f6;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
+            user-select: none; /* Improve drag experience */
         }
         .khmer-text {
-            font-family: 'Battambang', sans-serif;
+            font-family: 'Battambang', sans-serif, 'Hanuman', serif;
         }
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
@@ -63,40 +75,47 @@
             background: #94a3b8; 
         }
         
-        /* Reading Gap Styles */
-        .reading-gap {
-            display: inline-block;
-            min-width: 80px;
-            margin: 0 4px;
-        }
-        .reading-example {
-            font-weight: bold;
-            color: #16a34a; /* Green */
-            text-decoration: underline;
-        }
-        select.reading-select {
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 4px 8px;
-            color: #1e293b;
-            font-weight: 600;
-            background-color: #f8fafc;
-            cursor: pointer;
+        /* Drag and Drop Specific Styles */
+        .draggable-word {
+            cursor: grab;
             transition: all 0.2s;
-            width: 100%;
-            max-width: 140px;
         }
-        select.reading-select:focus {
-            border-color: #3b82f6;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        .draggable-word:active {
+            cursor: grabbing;
+            transform: scale(1.05);
         }
-        select.reading-select.correct {
+        .drop-zone {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            min-height: 32px;
+            margin: 0 4px;
+            border-bottom: 2px solid #3b82f6;
+            background-color: #eff6ff;
+            border-radius: 4px;
+            transition: all 0.2s;
+            padding: 0 8px;
+            vertical-align: middle;
+        }
+        .drop-zone.hovered {
+            background-color: #dbeafe;
+            border-color: #2563eb;
+            transform: scale(1.05);
+        }
+        .drop-zone.filled {
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            color: #1e40af;
+            font-weight: bold;
+            cursor: grab;
+        }
+        .drop-zone.correct {
             border-color: #22c55e;
             background-color: #f0fdf4;
             color: #15803d;
         }
-        select.reading-select.wrong {
+        .drop-zone.wrong {
             border-color: #ef4444;
             background-color: #fef2f2;
             color: #b91c1c;
@@ -732,38 +751,88 @@
 
     // --- SUB-COMPONENTS ---
 
-    const WelcomeScreen = ({ onStart, onTips }) => (
-        <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center fade-in bg-gradient-to-br from-blue-900 to-indigo-800 text-white w-full">
-            <div className="mb-8 p-6 bg-white bg-opacity-10 rounded-full shadow-2xl animate-bounce-slow">
-                <i className="fas fa-graduation-cap text-6xl text-yellow-400"></i>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 khmer-text text-yellow-300 drop-shadow-md">
-                អង់គ្លេសបាក់ឌុប
-            </h1>
-            <p className="text-lg md:text-xl mb-8 opacity-90 khmer-text max-w-lg">
-                កម្មវិធីប្រមូលផ្ដុំវិញ្ញាសាបាក់ឌុបចាប់ពីឆ្នាំ ២០១៤-២០២៥
-                <br/>
-                <span className="text-yellow-200 text-sm mt-2 block font-sans">Grammar & Vocabulary Practice</span>
-            </p>
-            
-            <div className="flex flex-col gap-4 w-full max-w-xs">
-                <button 
-                    onClick={onStart}
-                    className="khmer-text bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
-                >
-                    <i className="fas fa-play"></i> ចាប់ផ្តើមប្រឡង
-                </button>
-                <button 
-                    onClick={onTips}
-                    className="khmer-text bg-white hover:bg-gray-100 text-blue-900 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
-                >
-                    <i className="fas fa-lightbulb"></i> គន្លឹះវេយ្យករណ៍ និង វាក្យសព្ទ
-                </button>
-            </div>
+    const WelcomeScreen = ({ onStart, onTips, onExit }) => {
+        const [showExitModal, setShowExitModal] = useState(false);
 
-            <div className="mt-12 text-sm opacity-60">
-                © 2026 BacII Prep. Updated from Official Exam 2014-2025.
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center fade-in bg-gradient-to-br from-blue-900 to-indigo-800 text-white w-full relative">
+                <div className="mb-8 p-6 bg-white bg-opacity-10 rounded-full shadow-2xl animate-bounce-slow">
+                    <i className="fas fa-graduation-cap text-6xl text-yellow-400"></i>
+                </div>
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 khmer-text text-yellow-300 drop-shadow-md">
+                    អង់គ្លេសបាក់ឌុប
+                </h1>
+                <p className="text-lg md:text-xl mb-8 opacity-90 khmer-text max-w-lg">
+                    កម្មវិធីប្រមូលផ្ដុំវិញ្ញាសាបាក់ឌុបចាប់ពីឆ្នាំ ២០១៤-២០២៥
+                    <br/>
+                    <span className="text-yellow-200 text-sm mt-2 block font-sans">Grammar & Vocabulary Practice</span>
+                </p>
+                
+                <div className="flex flex-col gap-4 w-full max-w-xs">
+                    <button 
+                        onClick={onStart}
+                        className="khmer-text bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
+                    >
+                        <i className="fas fa-play"></i> ចាប់ផ្តើមប្រឡង
+                    </button>
+                    <button 
+                        onClick={onTips}
+                        className="khmer-text bg-white hover:bg-gray-100 text-blue-900 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
+                    >
+                        <i className="fas fa-lightbulb"></i> គន្លឹះវេយ្យករណ៍ និង វាក្យសព្ទ
+                    </button>
+                     <button 
+                        onClick={() => setShowExitModal(true)}
+                        className="khmer-text bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
+                    >
+                        <i className="fas fa-sign-out-alt"></i> ចាកចេញ
+                    </button>
+                </div>
+
+                {/* Exit Modal */}
+                {showExitModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-2xl p-6 max-w-sm w-full text-gray-800 shadow-2xl animate-bounce-slow" style={{animation: 'none'}}>
+                            <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i className="fas fa-question text-3xl"></i>
+                            </div>
+                            <h3 className="text-xl font-bold mb-6 khmer-text text-gray-800">តើអ្នកពិតជាចង់ចាកចេញមែនទេ?</h3>
+                            <div className="flex gap-4 justify-center">
+                                <button 
+                                    onClick={() => setShowExitModal(false)}
+                                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-xl khmer-text transition w-1/2"
+                                >
+                                    នៅបន្ត
+                                </button>
+                                <button 
+                                    onClick={onExit}
+                                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl khmer-text transition w-1/2"
+                                >
+                                    ចាកចេញ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <div className="mt-12 text-sm opacity-60">
+                    © 2026 BacII Prep. Updated from Official Exam 2014-2025.
+                </div>
             </div>
+        );
+    };
+
+    const GoodbyeScreen = () => (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4 text-center fade-in w-full">
+            <i className="fas fa-hand-holding-heart text-6xl text-pink-500 mb-6 animate-bounce"></i>
+            <h1 className="text-4xl font-bold mb-4 khmer-text">សូមអរគុណ!</h1>
+            <p className="text-xl opacity-80 mb-8 khmer-text">ជួបគ្នាពេលក្រោយ។</p>
+            <button 
+                onClick={() => window.location.reload()}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition khmer-text shadow-lg hover:shadow-blue-500/50"
+            >
+                <i className="fas fa-redo mr-2"></i> ចូលកម្មវិធីម្ដងទៀត
+            </button>
         </div>
     );
 
@@ -1241,7 +1310,7 @@
 
     // --- MAIN APP COMPONENT ---
     function App() {
-        // Game States: 'welcome', 'tips-menu', 'grammar-tips', 'vocab-list', 'year-menu', 'category-menu', 'playing', 'playing-reading', 'writing-screen', 'feedback', 'result'
+        // Game States: 'welcome', 'tips-menu', 'grammar-tips', 'vocab-list', 'year-menu', 'category-menu', 'playing', 'playing-reading', 'writing-screen', 'feedback', 'result', 'goodbye'
         const [gameState, setGameState] = useState('welcome');
         
         // Selections
@@ -1252,6 +1321,9 @@
         const [readingAnswers, setReadingAnswers] = useState({}); // { gapIndex: "answer" }
         const [showReadingResult, setShowReadingResult] = useState(false);
         const [readingScore, setReadingScore] = useState(0);
+
+        // Drag and Drop State
+        const [draggedWord, setDraggedWord] = useState(null); // { word: string, sourceIndex: number|null (null = box) }
 
         // Gameplay States
         const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -1320,12 +1392,12 @@
             playSound('click');
             setGameState('year-menu');
             
-            // Try to play music if not playing
+            // Try to play music if not playing (OFFLINE MODE CHECK: If file not found, catch error silently)
             if(bgMusicRef.current && !isMusicPlaying) {
                 bgMusicRef.current.volume = 0.2; 
                 bgMusicRef.current.play().then(() => {
                     setIsMusicPlaying(true);
-                }).catch(e => console.log("Auto-play prevented"));
+                }).catch(e => console.log("Audio prevented or offline"));
             }
         };
 
@@ -1392,11 +1464,55 @@
             }
         };
 
-        const handleReadingChange = (gapIndex, value) => {
-            setReadingAnswers(prev => ({
-                ...prev,
-                [gapIndex]: value
-            }));
+        // --- DRAG AND DROP HANDLERS ---
+        const handleDragStart = (e, word, sourceIndex) => {
+            setDraggedWord({ word, sourceIndex });
+            e.dataTransfer.setData("text/plain", word); // For standard HTML5 DnD compatibility
+            e.dataTransfer.effectAllowed = "move";
+        };
+
+        const handleDragOver = (e) => {
+            e.preventDefault(); // Necessary to allow dropping
+            e.dataTransfer.dropEffect = "move";
+        };
+
+        const handleDrop = (e, targetIndex) => {
+            e.preventDefault();
+            if (!draggedWord) return;
+
+            const newAnswers = { ...readingAnswers };
+
+            // Logic: 
+            // 1. If coming from another gap (sourceIndex !== null), remove from there.
+            // 2. Place word in target gap.
+            // 3. If target gap had a word, and we came from a gap, maybe swap? 
+            //    (Let's just overwrite for simplicity, or swap if user intent is clear. Swap is better UX).
+            
+            const existingWordInTarget = newAnswers[targetIndex];
+
+            // Remove from old location if it was a gap
+            if (draggedWord.sourceIndex !== null) {
+                delete newAnswers[draggedWord.sourceIndex];
+            }
+
+            // If we are swapping (Gap A -> Gap B, and Gap B had a word)
+            if (existingWordInTarget && draggedWord.sourceIndex !== null) {
+                newAnswers[draggedWord.sourceIndex] = existingWordInTarget;
+            }
+
+            // Place new word
+            newAnswers[targetIndex] = draggedWord.word;
+
+            setReadingAnswers(newAnswers);
+            setDraggedWord(null);
+            playSound('click');
+        };
+
+        const handleClearGap = (index) => {
+            if (showReadingResult) return;
+            const newAnswers = { ...readingAnswers };
+            delete newAnswers[index];
+            setReadingAnswers(newAnswers);
         };
 
         const submitReading = () => {
@@ -1420,38 +1536,52 @@
                 <div className="leading-relaxed text-lg text-gray-800 text-justify">
                     <h3 className="text-2xl font-bold text-center mb-6 text-blue-800">{activeReading.title}</h3>
                     
-                    {/* Word Box Display */}
-                    <div className="bg-blue-50 p-4 rounded-xl border-2 border-blue-100 mb-8">
-                        <p className="text-sm text-gray-500 mb-2 font-bold uppercase">Words Box:</p>
+                    {/* Word Box Display - Draggable Sources */}
+                    <div className="bg-blue-50 p-4 rounded-xl border-2 border-blue-100 mb-8 sticky top-20 z-10 shadow-md">
+                        <p className="text-sm text-gray-500 mb-2 font-bold uppercase">Drag words from here:</p>
                         <div className="flex flex-wrap gap-2">
                             {activeReading.wordBox.map((word, i) => (
-                                <span key={i} className="bg-white px-3 py-1 rounded-full text-blue-700 shadow-sm border border-blue-200 font-semibold text-sm">
+                                <div 
+                                    key={i} 
+                                    draggable={!showReadingResult}
+                                    onDragStart={(e) => handleDragStart(e, word, null)}
+                                    className={`bg-white px-4 py-2 rounded-lg text-blue-700 shadow-sm border border-blue-200 font-bold text-sm cursor-grab active:cursor-grabbing hover:bg-blue-100 transition transform hover:scale-105 select-none draggable-word`}
+                                >
                                     {word}
-                                </span>
+                                </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Text with Dropdowns */}
+                    {/* Text with Drop Zones */}
                     <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                         {activeReading.segments.map((segment, index) => (
                             <React.Fragment key={index}>
                                 <span dangerouslySetInnerHTML={{__html: segment}} />
                                 {index < activeReading.answers.length && (
-                                    <span className="reading-gap">
-                                        <select 
-                                            className={`reading-select ${showReadingResult ? (readingAnswers[index] === activeReading.answers[index] ? 'correct' : 'wrong') : ''}`}
-                                            value={readingAnswers[index] || ""}
-                                            onChange={(e) => handleReadingChange(index, e.target.value)}
-                                            disabled={showReadingResult}
-                                        >
-                                            <option value="">Select...</option>
-                                            {activeReading.wordBox.map((word, wIndex) => (
-                                                <option key={wIndex} value={word}>{word}</option>
-                                            ))}
-                                        </select>
+                                    <span 
+                                        className={`drop-zone ${readingAnswers[index] ? 'filled' : ''} ${showReadingResult ? (readingAnswers[index] === activeReading.answers[index] ? 'correct' : 'wrong') : ''}`}
+                                        onDragOver={!showReadingResult ? handleDragOver : undefined}
+                                        onDrop={!showReadingResult ? (e) => handleDrop(e, index) : undefined}
+                                        onClick={() => handleClearGap(index)}
+                                    >
+                                        {readingAnswers[index] ? (
+                                            <span 
+                                                draggable={!showReadingResult}
+                                                onDragStart={(e) => {
+                                                    e.stopPropagation(); // Prevent parent click
+                                                    handleDragStart(e, readingAnswers[index], index);
+                                                }}
+                                                className="w-full text-center block"
+                                            >
+                                                {readingAnswers[index]}
+                                            </span>
+                                        ) : (
+                                            <span className="text-gray-300 text-sm pointer-events-none">Drop Here</span>
+                                        )}
+                                        
                                         {showReadingResult && readingAnswers[index] !== activeReading.answers[index] && (
-                                            <span className="text-red-500 text-xs ml-1 font-bold">
+                                            <span className="text-red-500 text-xs ml-2 font-bold whitespace-nowrap">
                                                 ({activeReading.answers[index]})
                                             </span>
                                         )}
@@ -1482,6 +1612,11 @@
             setSelectedCategory(null);
             setGameState('year-menu');
         };
+
+        const handleExit = () => {
+            playSound('click');
+            setGameState('goodbye');
+        }
 
         // --- GAMEPLAY HANDLERS ---
 
@@ -1540,26 +1675,32 @@
 
         return (
             <div className="relative min-h-screen bg-gray-50">
-                {/* Background Music */}
-                <audio ref={bgMusicRef} loop>
+                {/* Background Music - Source removed for Offline safety, or keep local if available */}
+                {/* <audio ref={bgMusicRef} loop>
                     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg" />
-                </audio>
+                </audio> */}
 
-                {/* Music Toggle - Show everywhere except Welcome */}
-                {gameState !== 'welcome' && (
+                {/* Music Toggle - Hidden since audio is removed for offline */}
+                {/* {gameState !== 'welcome' && gameState !== 'goodbye' && (
                     <button 
                         onClick={toggleMusic} 
                         className="fixed bottom-4 right-4 z-50 bg-white p-3 rounded-full shadow-lg text-gray-700 hover:text-blue-600 transition"
                     >
                         <i className={`fas ${isMusicPlaying ? 'fa-volume-up' : 'fa-volume-mute'}`}></i>
                     </button>
-                )}
+                )} 
+                */}
 
                 {gameState === 'welcome' && (
                     <WelcomeScreen 
                         onStart={handleStartApp} 
                         onTips={handleTipsMenu}
+                        onExit={handleExit}
                     />
+                )}
+
+                {gameState === 'goodbye' && (
+                    <GoodbyeScreen />
                 )}
                 
                 {gameState === 'tips-menu' && (
