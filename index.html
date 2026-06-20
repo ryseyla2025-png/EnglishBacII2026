@@ -22,6 +22,16 @@
     
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+Babel.registerPreset('classicReact', function() {
+  return {
+    presets: [
+      [Babel.availablePresets.env, { targets: { esmodules: true } }],
+      [Babel.availablePresets.react, { runtime: 'classic' }]
+    ]
+  };
+});
+</script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -126,7 +136,7 @@
 
 <div id="root"></div>
 
-<script type="text/babel">
+<script type="text/babel" data-presets="classicReact">
     const { useState, useEffect, useRef } = React;
 
     // --- DATA: READING TEXTS (11 Gaps, Gap 1 = Example) ---
