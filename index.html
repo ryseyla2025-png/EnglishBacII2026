@@ -153,6 +153,60 @@
             background-color: #fef2f2;
             color: #b91c1c;
         }
+
+        /* --- Flashcard 3D Flip Effect --- */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-preserve-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* --- Dark Mode Overrides --- */
+        body.dark-mode {
+            background-color: #111827 !important;
+            /* Tailwind gray-900 */
+            color: #f3f4f6 !important;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #1f2937 !important;
+            /* Tailwind gray-800 */
+            border-color: #374151 !important;
+            color: #f3f4f6 !important;
+        }
+
+        body.dark-mode .bg-gray-50 {
+            background-color: #111827 !important;
+        }
+
+        body.dark-mode .text-gray-800,
+        body.dark-mode .text-gray-700 {
+            color: #f9fafb !important;
+        }
+
+        body.dark-mode .text-gray-500 {
+            color: #9ca3af !important;
+        }
+
+        body.dark-mode .bg-blue-50,
+        body.dark-mode .bg-indigo-50 {
+            background-color: #374151 !important;
+            border-color: #4b5563 !important;
+        }
+
+        body.dark-mode .shadow-xl {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4) !important;
+        }
     </style>
 </head>
 
@@ -869,7 +923,7 @@
 
         // --- SUB-COMPONENTS ---
 
-        const WelcomeScreen = ({onStart, onTips, onExit}) => {
+        const WelcomeScreen = ({onStart, onTips, onDashboard, onExit}) => {
             const [showExitModal, setShowExitModal] = useState(false);
 
             return (
@@ -898,6 +952,12 @@
                             className="khmer-text bg-white hover:bg-gray-100 text-blue-900 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
                         >
                             <i className="fas fa-lightbulb"></i> គន្លឹះវេយ្យករណ៍ និង វាក្យសព្ទ
+                        </button>
+                        <button
+                            onClick={onDashboard}
+                            className="khmer-text bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
+                        >
+                            <i className="fas fa-chart-line"></i> ប្រវត្តិសិក្សា
                         </button>
                         <button
                             onClick={() => setShowExitModal(true)}
@@ -989,6 +1049,17 @@
                                 </div>
                                 <h3 className="text-2xl font-bold khmer-text">វាក្យសព្ទ (Vocabulary)</h3>
                                 <p className="opacity-80 text-sm khmer-text">ពាក្យគន្លឹះ និងឧទាហរណ៍</p>
+                            </button>
+                            {/* ប៊ូតុងទី ៣ ថ្មី៖ Flashcards */}
+                            <button
+                                onClick={() => onSelectCategory('flashcards')}
+                                className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group md:col-span-2"
+                            >
+                                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition">
+                                    <i className="fas fa-clone text-3xl"></i>
+                                </div>
+                                <h3 className="text-2xl font-bold khmer-text">ហ្វឹកហាត់ Flashcards</h3>
+                                <p className="opacity-80 text-sm khmer-text">រៀនទន្ទេញពាក្យតាមរយៈសន្លឹកកាត</p>
                             </button>
                         </div>
                     </div>
@@ -1091,6 +1162,80 @@
                 </div>
             );
         };
+        // New Component: Flashcard Screen
+        const FlashcardScreen = ({vocabList, onBack}) => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [isFlipped, setIsFlipped] = useState(false);
+
+            const nextCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev + 1) % vocabList.length);
+                }, 150); // ពន្យារពេលបន្តិចដើម្បីឱ្យកាតវិលត្រឡប់សិន
+            };
+
+            const prevCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev - 1 + vocabList.length) % vocabList.length);
+                }, 150);
+            };
+
+            const card = vocabList[currentIndex];
+
+            return (
+                <div className="flex flex-col min-h-screen bg-gray-50 w-full fade-in">
+                    <div className="bg-white shadow-md p-4 sticky top-0 z-10">
+                        <div className="max-w-3xl mx-auto flex justify-between items-center">
+                            <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition">
+                                <i className="fas fa-arrow-left text-xl"></i>
+                            </button>
+                            <h2 className="text-xl font-bold text-gray-800 khmer-text">
+                                រៀនពាក្យ (Flashcards) {currentIndex + 1}/{vocabList.length}
+                            </h2>
+                            <div className="w-6"></div>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 flex flex-col items-center justify-center p-4">
+                        {/* កាត Flashcard អាចចុចត្រឡប់បាន */}
+                        <div
+                            className="relative w-full max-w-sm h-80 perspective-1000 cursor-pointer group"
+                            onClick={() => setIsFlipped(!isFlipped)}
+                        >
+                            <div className={`w-full h-full transition-transform duration-500 transform-style-preserve-3d relative ${isFlipped ? 'rotate-y-180' : ''}`}>
+                                {/* ផ្ទៃខាងមុខ (ភាសាអង់គ្លេស) */}
+                                <div className="absolute w-full h-full bg-white rounded-3xl shadow-xl border-2 border-indigo-100 flex flex-col items-center justify-center backface-hidden p-6 text-center transform group-hover:scale-105 transition">
+                                    <span className="text-gray-400 uppercase text-xs font-bold absolute top-6 khmer-text bg-gray-100 px-3 py-1 rounded-full"><i className="fas fa-hand-pointer"></i> ចុចដើម្បីមើលអត្ថន័យ</span>
+                                    <h3 className="text-4xl font-bold text-indigo-700">{card.word}</h3>
+                                </div>
+
+                                {/* ផ្ទៃខាងក្រោយ (ភាសាខ្មែរ) */}
+                                <div className="absolute w-full h-full bg-indigo-600 rounded-3xl shadow-xl border-2 border-indigo-700 flex flex-col items-center justify-center backface-hidden p-6 text-center rotate-y-180 text-white transform group-hover:scale-105 transition">
+                                    <h3 className="text-3xl font-bold khmer-text mb-4 text-yellow-300">{card.meaning}</h3>
+                                    <div className="bg-indigo-800 bg-opacity-50 p-3 rounded-xl">
+                                        <p className="text-lg italic opacity-90">"{card.example}"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* ប៊ូតុងបញ្ជា */}
+                        <div className="flex items-center gap-6 mt-12">
+                            <button onClick={prevCard} className="w-14 h-14 bg-white rounded-full shadow-lg text-indigo-600 hover:bg-indigo-50 transition flex items-center justify-center text-xl">
+                                <i className="fas fa-arrow-left"></i>
+                            </button>
+                            <button onClick={() => setIsFlipped(!isFlipped)} className="px-6 py-3 bg-indigo-100 text-indigo-700 rounded-full font-bold khmer-text shadow-sm hover:bg-indigo-200 transition">
+                                <i className="fas fa-sync-alt mr-2"></i> ត្រឡប់កាត
+                            </button>
+                            <button onClick={nextCard} className="w-14 h-14 bg-indigo-600 rounded-full shadow-lg text-white hover:bg-indigo-700 transition flex items-center justify-center text-xl">
+                                <i className="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
 
         // New Component: Writing Screen
         const WritingScreen = ({year, onBack}) => {
@@ -1181,6 +1326,21 @@
                                 </div>
                                 <h3 className="text-2xl font-bold khmer-text">Vocabulary សុទ្ធ</h3>
                                 <p className="opacity-80 text-sm khmer-text">តេស្តវាក្យសព្ទរាល់ឆ្នាំបញ្ចូលគ្នា</p>
+                            </button>
+                            {/* ប៊ូតុងទី ៤ ថ្មី៖ សំណួរដែលបានកត់ត្រា */}
+                            <button
+                                onClick={() => onSelectMode('bookmarks')}
+                                className="bg-gradient-to-br from-red-500 to-red-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group md:col-span-3"
+                            >
+                                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition relative">
+                                    <i className="fas fa-star text-3xl"></i>
+                                    <span className="absolute -top-2 -right-2 flex h-4 w-4">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-500"></span>
+                                    </span>
+                                </div>
+                                <h3 className="text-2xl font-bold khmer-text">សំណួរដែលបានកត់ត្រា (Review Later)</h3>
+                                <p className="opacity-80 text-sm khmer-text">ធ្វើតេស្តសំណួរដែលអ្នកបាន Save ទុកឡើងវិញ</p>
                             </button>
                         </div>
                     </div>
@@ -1295,7 +1455,8 @@
             );
         };
 
-        const QuizScreen = ({questionData, currentQuestionIndex, totalQuestions, onAnswer, timer, score, streak, year, category, onBack}) => {
+        // ស្វែងរកបន្ទាត់នេះ ហើយកែប្រែដោយបន្ថែម Props ថ្មី២ (isBookmarked, onToggleBookmark)
+        const QuizScreen = ({questionData, currentQuestionIndex, totalQuestions, onAnswer, timer, score, streak, year, category, onBack, isBookmarked, onToggleBookmark}) => {
             return (
                 <div className="flex flex-col min-h-screen bg-gray-50 w-full">
                     {/* Header */}
@@ -1320,16 +1481,16 @@
                         </div>
                         {/* Progress Bar */}
                         <div className="w-full bg-gray-200 h-2 mt-4 rounded-full overflow-hidden max-w-3xl mx-auto">
-                            <div
+                            <div 
                                 className="bg-blue-600 h-full transition-all duration-500"
-                                style={{width: `${((currentQuestionIndex) / totalQuestions) * 100}%`}}
+                                style={{ width: `${((currentQuestionIndex) / totalQuestions) * 100}%` }}
                             ></div>
                         </div>
                     </div>
 
                     {/* Question Content */}
                     <div className="flex-1 flex flex-col items-center justify-center p-4 max-w-3xl mx-auto w-full fade-in">
-
+                        
                         {/* Streak Badge */}
                         {streak >= 3 && (
                             <div className="mb-4 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold animate-bounce shadow-lg flex items-center gap-2">
@@ -1338,26 +1499,38 @@
                         )}
 
                         <div className="bg-white rounded-2xl shadow-xl p-6 md:p-10 w-full relative overflow-hidden">
-                            {/* Watermark Icon */}
-                            <div className="absolute top-0 right-0 opacity-5 pointer-events-none p-4">
+                             {/* Watermark Icon */}
+                             <div className="absolute top-0 right-0 opacity-5 pointer-events-none p-4">
                                 <i className="fas fa-book-open text-9xl text-gray-100"></i>
                             </div>
 
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
-                                    <i className="far fa-calendar-alt"></i> {year}
+                                   <i className="far fa-calendar-alt"></i> {year}
                                 </span>
-                                <span className="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full font-bold uppercase shadow-sm">
-                                    {category}
-                                </span>
+                                
+                                {/* ប៊ូតុងសញ្ញាផ្កាយ (Bookmark) */}
+                                <div className="flex items-center gap-3">
+                                    <span className="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full font-bold uppercase shadow-sm">
+                                        {category}
+                                    </span>
+                                    <button 
+                                        onClick={onToggleBookmark}
+                                        className={`text-2xl transition-transform transform hover:scale-125 focus:outline-none ${isBookmarked ? 'text-yellow-400 drop-shadow-md' : 'text-gray-200 hover:text-yellow-200'}`}
+                                        title="កត់ត្រាសំណួរនេះទុក"
+                                    >
+                                        <i className="fas fa-star"></i>
+                                    </button>
+                                </div>
                             </div>
-
+                            
                             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 leading-relaxed">
-                                {questionData.question}
+                                {questionData?.question}
                             </h2>
 
+                            {/* ជម្រើសចម្លើយ A B C D */}
                             <div className="grid grid-cols-1 gap-4">
-                                {questionData.options.map((option, index) => (
+                                {questionData?.options?.map((option, index) => (
                                     <button
                                         key={index}
                                         onClick={() => onAnswer(option)}
@@ -1542,6 +1715,89 @@
             );
         };
 
+        // New Component: Progress Dashboard Screen
+        const DashboardScreen = ({onBack}) => {
+            const [history, setHistory] = useState([]);
+
+            useEffect(() => {
+                // ទាញយកទិន្នន័យពី LocalStorage ពេលបើកផ្ទាំងនេះ
+                const savedData = JSON.parse(localStorage.getItem('bac2_english_progress') || '[]');
+                setHistory(savedData);
+            }, []);
+
+            const clearHistory = () => {
+                if (window.confirm("តើអ្នកពិតជាចង់លុបប្រវត្តិសិក្សាទាំងអស់មែនទេ?")) {
+                    localStorage.removeItem('bac2_english_progress');
+                    setHistory([]);
+                }
+            };
+
+            const totalTests = history.length;
+            const avgScore = totalTests > 0 ? Math.round(history.reduce((acc, curr) => acc + curr.percentage, 0) / totalTests) : 0;
+
+            return (
+                <div className="flex flex-col min-h-screen bg-gray-50 w-full fade-in">
+                    <div className="bg-white shadow-md p-4 sticky top-0 z-10">
+                        <div className="max-w-3xl mx-auto flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition">
+                                    <i className="fas fa-arrow-left text-xl"></i>
+                                </button>
+                                <h2 className="text-xl font-bold text-gray-800 khmer-text">ប្រវត្តិសិក្សា</h2>
+                            </div>
+                            {totalTests > 0 && (
+                                <button onClick={clearHistory} className="text-red-500 hover:text-red-700 text-sm font-bold khmer-text">
+                                    លុបទិន្នន័យ
+                                </button>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex-1 p-4 max-w-3xl mx-auto w-full pb-20 custom-scroll overflow-y-auto">
+                        {/* Summary Cards */}
+                        <div className="grid grid-cols-2 gap-4 mb-8">
+                            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-6 rounded-2xl shadow-lg text-white text-center transform transition hover:scale-105">
+                                <i className="fas fa-tasks text-3xl mb-2 opacity-80"></i>
+                                <h3 className="text-3xl font-bold">{totalTests}</h3>
+                                <p className="text-sm khmer-text opacity-90 mt-1">ចំនួនតេស្តបានធ្វើ</p>
+                            </div>
+                            <div className={`p-6 rounded-2xl shadow-lg text-white text-center transform transition hover:scale-105 ${avgScore >= 75 ? 'bg-gradient-to-br from-green-400 to-green-600' : avgScore >= 50 ? 'bg-gradient-to-br from-yellow-400 to-orange-500' : 'bg-gradient-to-br from-red-400 to-red-600'}`}>
+                                <i className="fas fa-chart-line text-3xl mb-2 opacity-80"></i>
+                                <h3 className="text-3xl font-bold">{avgScore}%</h3>
+                                <p className="text-sm khmer-text opacity-90 mt-1">ពិន្ទុមធ្យមភាគ</p>
+                            </div>
+                        </div>
+
+                        {/* History List */}
+                        <h3 className="text-lg font-bold text-gray-700 mb-4 khmer-text">លទ្ធផលថ្មីៗ</h3>
+                        {totalTests === 0 ? (
+                            <div className="bg-white p-8 rounded-2xl shadow-sm text-center border border-gray-100">
+                                <i className="fas fa-folder-open text-4xl text-gray-300 mb-3"></i>
+                                <p className="text-gray-500 khmer-text">មិនទាន់មានប្រវត្តិធ្វើតេស្តនៅឡើយទេ</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {history.map((record, index) => (
+                                    <div key={index} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition">
+                                        <div>
+                                            <h4 className="font-bold text-gray-800">{record.mode}</h4>
+                                            <p className="text-xs text-gray-400"><i className="far fa-clock"></i> {record.date}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className={`font-bold text-lg ${record.percentage >= 75 ? 'text-green-600' : record.percentage >= 50 ? 'text-yellow-600' : 'text-red-600'}`}>
+                                                {record.score} / {record.total}
+                                            </p>
+                                            <p className="text-xs font-bold text-gray-400">{record.percentage}%</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
         // --- MAIN APP COMPONENT ---
         function App() {
             // Game States: 'welcome', 'tips-menu', 'grammar-tips', 'vocab-list', 'year-menu', 'category-menu', 'playing', 'playing-reading', 'writing-screen', 'feedback', 'result', 'goodbye'
@@ -1564,8 +1820,89 @@
             const [score, setScore] = useState(0);
             const [streak, setStreak] = useState(0);
             const [timer, setTimer] = useState(60);
+            // --- មុខងាររក្សាទុកប្រវត្តិសិក្សា (Save Progress) ---
+            const saveProgress = (modeName, currentScore, totalItems) => {
+                const now = new Date();
+                const dateString = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'});
+
+                const newRecord = {
+                    date: dateString,
+                    mode: modeName,
+                    score: currentScore,
+                    total: totalItems,
+                    percentage: Math.round((currentScore / totalItems) * 100)
+                };
+
+                const existingData = JSON.parse(localStorage.getItem('bac2_english_progress') || '[]');
+                // រក្សាទុកតែ ៥០ ដងចុងក្រោយប៉ុណ្ណោះ ដើម្បីកុំឱ្យធ្ងន់ទូរស័ព្ទ
+                const updatedData = [newRecord, ...existingData].slice(0, 50);
+                localStorage.setItem('bac2_english_progress', JSON.stringify(updatedData));
+            };
             const [lastAnswerCorrect, setLastAnswerCorrect] = useState(false);
             const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+            // --- DARK MODE LOGIC ---
+            const [isDarkMode, setIsDarkMode] = useState(false);
+
+            // ទាញយក Theme ចាស់ពេលបើកកម្មវិធី
+            useEffect(() => {
+                const savedTheme = localStorage.getItem('bac2_theme');
+                if (savedTheme === 'dark') {
+                    setIsDarkMode(true);
+                    document.body.classList.add('dark-mode');
+                }
+            }, []);
+
+            const toggleDarkMode = () => {
+                playSound('click');
+                if (isDarkMode) {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('bac2_theme', 'light');
+                    setIsDarkMode(false);
+                } else {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('bac2_theme', 'dark');
+                    setIsDarkMode(true);
+                }
+            };
+            // --- BOOKMARK LOGIC ---
+            const [bookmarkedIds, setBookmarkedIds] = useState([]);
+
+            // ទាញយក Bookmarks ពី LocalStorage ពេលបើកកម្មវិធី
+            useEffect(() => {
+                const savedBookmarks = JSON.parse(localStorage.getItem('bac2_bookmarks') || '[]');
+                setBookmarkedIds(savedBookmarks);
+            }, []);
+
+            const handleToggleBookmark = (questionId) => {
+                playSound('click');
+                let updatedBookmarks;
+                if (bookmarkedIds.includes(questionId)) {
+                    updatedBookmarks = bookmarkedIds.filter(id => id !== questionId);
+                } else {
+                    updatedBookmarks = [...bookmarkedIds, questionId];
+                }
+                setBookmarkedIds(updatedBookmarks);
+                localStorage.setItem('bac2_bookmarks', JSON.stringify(updatedBookmarks));
+            };
+
+            const startBookmarkTest = () => {
+                if (bookmarkedIds.length === 0) {
+                    alert("អ្នកមិនទាន់មានកត់ត្រាសំណួរទុកនៅឡើយទេ។ សូមចុចសញ្ញាផ្កាយ (⭐) ពេលកំពុងធ្វើតេស្ត ដើម្បីកត់ត្រាវាទុក!");
+                    return;
+                }
+                // ទាញយកតែសំណួរណាដែលមាន ID ក្នុង bookmarkedIds
+                const filtered = allQuestionsData.filter(q => bookmarkedIds.includes(q.id));
+                const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+
+                setActiveQuestions(shuffled);
+                setSelectedYear('Review'); // ដាក់ឈ្មោះថា Review
+                setSelectedCategory('Bookmarks');
+                setScore(0);
+                setStreak(0);
+                setCurrentQuestionIndex(0);
+                setTimer(60);
+                setGameState('playing');
+            };
 
             const bgMusicRef = useRef(null);
 
@@ -1644,6 +1981,8 @@
                     startPureTest('Grammar');
                 } else if (mode === 'pure-vocab') {
                     startPureTest('Vocabulary');
+                } else if (mode === 'bookmarks') {
+                    startBookmarkTest(); // ហៅ Function ធ្វើតេស្តសំណួរពិបាក
                 }
             };
 
@@ -1787,12 +2126,14 @@
             const submitReading = () => {
                 let correctCount = 0;
                 activeReading.answers.forEach((ans, index) => {
-                    if (readingAnswers[index] === ans) {
-                        correctCount++;
-                    }
+                    if (readingAnswers[index] === ans) correctCount++;
                 });
                 setReadingScore(correctCount);
                 setShowReadingResult(true);
+
+                // Save Progress សម្រាប់ Reading
+                saveProgress(`Year ${activeReading.year} - Reading`, correctCount, activeReading.answers.length);
+
                 if (correctCount === activeReading.answers.length) {
                     playSound('correct');
                 }
@@ -1929,6 +2270,10 @@
                     setTimer(60);
                     setGameState('playing');
                 } else {
+                    // Save Progress មុនពេលបង្ហាញលទ្ធផល
+                    const testModeName = selectedYear === 'All Years' ? `Pure ${selectedCategory}` : `Year ${selectedYear} - ${selectedCategory}`;
+                    saveProgress(testModeName, score, activeQuestions.length);
+
                     setGameState('result');
                 }
             };
@@ -1964,8 +2309,14 @@
                         <WelcomeScreen
                             onStart={handleStartApp}
                             onTips={handleTipsMenu}
+                            onDashboard={() => setGameState('dashboard')} // បន្ថែមចំណុចនេះ
                             onExit={handleExit}
                         />
+                    )}
+
+                    {/* បន្ថែមចំណុចនេះពីក្រោម WelcomeScreen */}
+                    {gameState === 'dashboard' && (
+                        <DashboardScreen onBack={() => setGameState('welcome')} />
                     )}
 
                     {gameState === 'test-mode-menu' && (
@@ -1994,6 +2345,14 @@
                         <VocabularyListScreen onBack={handleBackToTipsMenu} />
                     )}
 
+                    {/* បន្ថែមចំណុចនេះ សម្រាប់ Flashcards */}
+                    {gameState === 'flashcards' && (
+                        <FlashcardScreen
+                            vocabList={vocabularyData}
+                            onBack={handleBackToTipsMenu}
+                        />
+                    )}
+
                     {gameState === 'year-menu' && (
                         <YearMenuScreen
                             onSelectYear={handleSelectYear}
@@ -2020,7 +2379,11 @@
                             streak={streak}
                             year={selectedYear}
                             category={selectedCategory}
-                            onBack={handleBackFromQuiz} // ជំនួសកន្លែងនេះ
+                            onBack={handleBackFromQuiz}
+
+                            // បន្ថែម ២ បន្ទាត់នេះ
+                            isBookmarked={bookmarkedIds.includes(activeQuestions[currentQuestionIndex]?.id)}
+                            onToggleBookmark={() => handleToggleBookmark(activeQuestions[currentQuestionIndex]?.id)}
                         />
                     )}
 
@@ -2096,6 +2459,15 @@
                             onHome={handleGoHome}
                         />
                     )}
+
+                    {/* នេះជាប៊ូតុងបិទបើក Dark Mode */}
+                    <button
+                        onClick={toggleDarkMode}
+                        className="fixed bottom-6 right-6 z-[100] bg-gray-800 dark:bg-yellow-400 text-yellow-400 dark:text-gray-900 w-14 h-14 rounded-full shadow-2xl border-2 border-gray-700 flex items-center justify-center text-2xl transition transform hover:scale-110 hover:rotate-12"
+                        title={isDarkMode ? "បិទមុខងារងងឹត" : "បើកមុខងារងងឹត"}
+                    >
+                        <i className={`fas ${isDarkMode ? 'fa-sun text-yellow-300' : 'fa-moon text-yellow-400'}`}></i>
+                    </button>
                 </div>
             );
         }
