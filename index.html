@@ -163,8 +163,9 @@
             transform-style: preserve-3d;
         }
 
-        .backface-hidden {
-            backface-visibility: hidden;
+        .backface-hidden { 
+            backface-visibility: hidden; 
+            -webkit-backface-visibility: hidden; /* បន្ថែមបន្ទាត់នេះដើម្បីឱ្យស្គាល់លើ iPhone/Safari */
         }
 
         .rotate-y-180 {
@@ -594,172 +595,213 @@
             }
         ];
 
-        // --- DATA: GRAMMAR TIPS ---
+        // ==========================================
+        // 3. DATA: GRAMMAR TIPS (បន្ថែមឱ្យគ្រប់ជ្រុងជ្រោយ)
+        // ==========================================
         const grammarTipsData = [
-            {
-                title: "1. Passive Voice (ល្បះកម្ម)",
-                content: "Passive Voice តែងតែចេញប្រឡងស្ទើររាល់ឆ្នាំ។ ចំណាំ៖ ប្រធានរងអំពើ (Subject receives action)។",
-                formula: "Be + Past Participle (V3)",
-                examples: [
-                    "The bridge **was built** in 2010.",
-                    "Many accidents **are caused** by drunk drivers.",
-                    "The project **will be completed** next month."
-                ]
-            },
-            {
-                title: "2. Conditional Sentences (ប្រយោគលក្ខខណ្ឌ)",
-                content: "Type 2 (Second Conditional) ពេញនិយមបំផុតក្នុងការប្រឡង។ ប្រើសម្រាប់ស្ថានភាពសន្មតមិនពិតនៅបច្ចុប្បន្ន។",
-                formula: "If + Past Simple, ... would + V1",
-                examples: [
-                    "If I **were** you, I **would study** harder.",
-                    "If he **drove** carefully, he **wouldn't have** accidents."
-                ]
-            },
-            {
-                title: "3. Tenses: Past Simple vs. Past Continuous",
-                content: "ប្រើផ្គួបគ្នាសម្រាប់សកម្មភាពមួយកំពុងកើតឡើង (Long action) ហើយមានសកម្មភាពមួយទៀតមកកាត់ (Short action)។",
-                formula: "Past Continuous (was/were + V-ing) ... when ... Past Simple (V2/ed)",
-                examples: [
-                    "I **was waiting** for the bus when I **dropped** my wallet."
-                ]
-            },
-            {
-                title: "4. Question Tags (សំណួរបន្ថែម)",
-                content: "ប្រសិនបើប្រយោគស្រប Tag ត្រូវបដិសេធ។ ប្រសិនបើប្រយោគបដិសេធ Tag ត្រូវស្រប។",
-                formula: "Auxiliary Verb + Subject Pronoun?",
-                examples: [
-                    "You **are** a student, **aren't** you?",
-                    "She **didn't** go, **did** she?"
-                ]
-            },
-            {
-                title: "5. Prepositions: Because vs. Because of",
-                content: "ចំណុចនេះចេញញឹកញាប់។ ត្រូវចេះបែងចែកការប្រើប្រាស់។",
-                formula: "Because + Clause (S + V) | Because of + Noun/Phrase",
-                examples: [
-                    "He stayed home **because** he **was** sick.",
-                    "He stayed home **because of** his **sickness**."
-                ]
-            }
+            {title: "1. Passive Voice (ល្បះកម្ម)", content: "Passive Voice តែងតែចេញប្រឡងស្ទើររាល់ឆ្នាំ។ ចំណាំ៖ ប្រធានរងអំពើ (Subject receives action)។", formula: "Be + Past Participle (V3)", examples: ["The bridge **was built** in 2010.", "Many accidents **are caused** by drunk drivers."]},
+            {title: "2. Conditional Sentences (ប្រយោគលក្ខខណ្ឌ)", content: "Type 2 (Second Conditional) ពេញនិយមបំផុតក្នុងការប្រឡង។ ប្រើសម្រាប់ស្ថានភាពសន្មតមិនពិតនៅបច្ចុប្បន្ន។", formula: "If + Past Simple, ... would + V1", examples: ["If I **were** you, I **would study** harder.", "If he **drove** carefully, he **wouldn't have** accidents."]},
+            {title: "3. Perfect Tenses", content: "Present Perfect ប្រើសម្រាប់សកម្មភាពតាំងពីអតីតកាលដល់បច្ចុប្បន្ន។ Past Perfect ប្រើសម្រាប់សកម្មភាពដែលចប់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល។", formula: "S + have/has + V3 (Present P.) | S + had + V3 (Past P.)", examples: ["I **have been** to America.", "I **had left** the house before you called."]},
+            {title: "4. Tenses: Past Simple vs. Past Continuous", content: "ប្រើផ្គួបគ្នាសម្រាប់សកម្មភាពមួយកំពុងកើតឡើង (Long action) ហើយមានសកម្មភាពមួយទៀតមកកាត់ (Short action)។", formula: "Past Continuous (was/were + V-ing) ... when ... Past Simple (V2/ed)", examples: ["I **was waiting** for the bus when I **dropped** my wallet."]},
+            {title: "5. Question Tags (សំណួរបន្ថែម)", content: "ប្រសិនបើប្រយោគស្រប Tag ត្រូវបដិសេធ។ ប្រសិនបើប្រយោគបដិសេធ Tag ត្រូវស្រប។", formula: "Auxiliary Verb + Subject Pronoun?", examples: ["You **are** a student, **aren't** you?", "She **didn't** go, **did** she?"]},
+            {title: "6. Prepositions: Because vs. Because of", content: "ចំណុចនេះចេញញឹកញាប់។ ត្រូវចេះបែងចែកការប្រើប្រាស់។", formula: "Because + Clause (S + V) | Because of + Noun/Phrase", examples: ["He stayed home **because** he **was** sick.", "He stayed home **because of** his **sickness**."]},
+            {title: "7. Relative Clauses (ឃ្លាគុណនាម)", content: "ប្រើដើម្បីបញ្ជាក់នាមដែលនៅពីមុខវា។ (Who=មនុស្ស, Which=សត្វ/វត្ថុ, Whose=កម្មសិទ្ធិ, Where=ទីកន្លែង)", formula: "Noun + Relative Pronoun + Clause", examples: ["The man **who** took your coat.", "The girl **whose** son was kidnapped."]},
+            {title: "8. Gerunds & Infinitives", content: "កិរិយាសព្ទខ្លះត្រូវតាមដោយ V-ing ឯខ្លះទៀតតាមដោយ To+V1។ ក្រោយ Preposition (in, on, without...) តែងតែប្រើ V-ing។", formula: "Preposition + V-ing | look forward to + V-ing", examples: ["I look forward **to seeing** you.", "We can't live without **eating**."]},
+            {title: "9. Used to (ធ្លាប់)", content: "ប្រើសម្រាប់បង្ហាញពីទម្លាប់ក្នុងអតីតកាល ដែលបច្ចុប្បន្នលែងធ្វើទៀតហើយ។", formula: "S + used to + V1 | S + didn't use to + V1", examples: ["He **didn't use to** be fat years ago."]}
         ];
 
-        // --- DATA: LESSONS (សម្រាប់មុខងារ សិក្សាមេរៀនពេលឆ្លើយខុស) ---
+        // ==========================================
+        // 4. DATA: LESSONS (AI TUTOR EXPLANATIONS)
+        // ==========================================
         const lessonsData = {
-            'passive-voice': {
-                title: 'Passive Voice (ល្បះកម្ម)',
-                content: 'Passive Voice ប្រើសម្រាប់សង្កត់ធ្ងន់ទៅលើ "អ្នករងអំពើ" ឬ "វត្ថុដែលត្រូវបានគេធ្វើសកម្មភាពទៅលើ"។ ភាគច្រើនចេញប្រឡងជាមួយ Tense ដូចជា Present Simple, Past Simple និង Future Simple។',
-                formula: 'Subject + Be + Past Participle (V3)',
-                examples: [
-                    "Present: Accidents <b>are caused</b> by drunk drivers.",
-                    "Past: The problem <b>was solved</b> last night.",
-                    "Future: The bridge <b>will be completed</b> next month."
-                ]
-            },
-            'conditionals': {
-                title: 'Conditional Sentences (ប្រយោគលក្ខខណ្ឌ)',
-                content: 'Type 2 គឺពេញនិយមបំផុតក្នុងការប្រឡងបាក់ឌុប។ វាប្រើសម្រាប់និយាយពីការសន្មតដែលមិនអាចកើតមានពិតនៅបច្ចុប្បន្ន (Unreal Present)។',
-                formula: 'If + Past Simple, ... would/could + V1',
-                examples: [
-                    "If I <b>found</b> a wallet, I <b>would take</b> it to the police.",
-                    "If pictures <b>weren't</b> so expensive, I <b>would buy</b> many more."
-                ]
-            },
-            'tenses': {
-                title: 'Tenses: Past Cont. vs Past Simple',
-                content: 'ច្រើនចេញទម្រង់សកម្មភាពពីរក្នុងអតីតកាល។ សកម្មភាពកំពុងកើតឡើង (Past Continuous) ត្រូវបានរំខានដោយសកម្មភាពមួយទៀតដែលកើតឡើងភ្លាមៗ (Past Simple)។',
-                formula: 'Past Continuous (was/were + V-ing) + when + Past Simple (V2/ed)',
-                examples: [
-                    "I <b>was getting</b> on the bus when I <b>dropped</b> my wallet.",
-                    "She <b>was cleaning</b> her teeth when the phone <b>rang</b>."
-                ]
-            },
-            'question-tags': {
-                title: 'Question Tags (សំណួរបន្ថែម)',
-                content: 'ប្រើដើម្បីបញ្ជាក់ព័ត៌មាន។ ច្បាប់ទូទៅ៖ ប្រយោគស្រប -> Tag បដិសេធ | ប្រយោគបដិសេធ -> Tag ស្រប។ កុំភ្លេចមើលកិរិយាសព្ទជំនួយ (Auxiliary Verb) ឲ្យត្រូវនឹង Tense។',
-                formula: 'Auxiliary Verb (+ n\'t) + Subject Pronoun?',
-                examples: [
-                    "You <b>broke</b> the glass, <b>didn't</b> you? (Past Simple)",
-                    "Samnang <b>works</b> here, <b>doesn't</b> he? (Present Simple)",
-                    "You <b>have</b> never seen this, <b>have</b> you? (Negative -> Positive)"
-                ]
-            },
-            'prepositions': {
-                title: 'Because vs Because of',
-                content: 'ការប្រើប្រាស់ពាក្យភ្ជាប់បញ្ជាក់ពីហេតុផល។ ត្រូវចងចាំថា Because of មិនអាចតាមក្រោយដោយប្រយោគពេញលេញ (Subject + Verb) នោះទេ។',
-                formula: 'Because + Clause (S + V) | Because of + Noun/Noun Phrase',
-                examples: [
-                    "He stayed home <b>because</b> he was sick. (Clause)",
-                    "Trees fell down <b>because of</b> the strong wind. (Noun Phrase)"
-                ]
-            },
-            'relative-clauses': {
-                title: 'Relative Clauses (ឃ្លាគុណនាម)',
-                content: 'ប្រើដើម្បីពន្យល់នាមដែលនៅខាងមុខវា។',
-                formula: 'Who (មនុស្ស) | Which (សត្វ/វត្ថុ) | Where (ទីកន្លែង)',
-                examples: [
-                    "The person <b>who</b> cuts my hair usually does a good job.",
-                    "The tree <b>which</b> grows behind my house gives a lot of shade."
-                ]
-            },
-            'vocab-context': {
-                title: 'ការស្វែងយល់វាក្យសព្ទ (Vocabulary Context)',
-                content: 'សំណួរវាក្យសព្ទ (Vocabulary) ទាមទារឲ្យប្អូនៗចេះបកប្រែពាក្យគន្លឹះក្នុងប្រយោគ។ សូមទន្ទេញពាក្យគន្លឹះដែលចេញញឹកញាប់ក្នុងវិញ្ញាសាចាស់ៗ។',
-                formula: 'សង្កេតមើលពាក្យដែលនៅជុំវិញចន្លោះ (Context Clues)',
-                examples: [
-                    "weather <b>forecast</b> = ការព្យាករណ៍អាកាសធាតុ",
-                    "<b>charge</b> for cleaning = គិតថ្លៃសេវាកម្មសម្អាត",
-                    "make a <b>complaint</b> = ធ្វើការប្តឹងតវ៉ា"
-                ]
-            }
+            'passive-voice': {title: 'Passive Voice (ល្បះកម្ម)', content: 'Passive Voice ប្រើសម្រាប់សង្កត់ធ្ងន់ទៅលើ "អ្នករងអំពើ" ឬ "វត្ថុដែលត្រូវបានគេធ្វើសកម្មភាពទៅលើ"។ ភាគច្រើនចេញប្រឡងជាមួយ Tense ដូចជា Present Simple, Past Simple និង Future Simple។', formula: 'Subject + Be + Past Participle (V3)', examples: ["Present: Accidents <b>are caused</b> by drunk drivers.", "Past: The problem <b>was solved</b> last night.", "Future: The bridge <b>will be completed</b> next month."]},
+            'conditionals': {title: 'Conditional Sentences (ប្រយោគលក្ខខណ្ឌ)', content: 'Type 2 គឺពេញនិយមបំផុតក្នុងការប្រឡងបាក់ឌុប។ វាប្រើសម្រាប់និយាយពីការសន្មតដែលមិនអាចកើតមានពិតនៅបច្ចុប្បន្ន (Unreal Present)។', formula: 'If + Past Simple, ... would/could + V1', examples: ["If I <b>found</b> a wallet, I <b>would take</b> it to the police.", "If pictures <b>weren't</b> so expensive, I <b>would buy</b> many more."]},
+            'perfect-tenses': {title: 'Perfect Tenses', content: 'Present Perfect ប្រើសម្រាប់សកម្មភាពដែលកើតពីអតីតកាលបន្តដល់បច្ចុប្បន្ន។ ចំណែក Past Perfect ប្រើសម្រាប់សកម្មភាពដែលកើត និងចប់មុនសកម្មភាពមួយទៀតក្នុងអតីតកាល (សកម្មភាពកើតមុនប្រើ Past Perfect កើតក្រោយប្រើ Past Simple)។', formula: 'S + have/has + V3 (Present Perfect) | S + had + V3 (Past Perfect)', examples: ["I <b>have been</b> to America.", "I <b>had left</b> the house before you called."]},
+            'tenses': {title: 'Past Continuous vs Past Simple', content: 'ច្រើនចេញទម្រង់សកម្មភាពពីរក្នុងអតីតកាល។ សកម្មភាពកំពុងកើតឡើង (Past Continuous) ត្រូវបានរំខានដោយសកម្មភាពមួយទៀតដែលកើតឡើងភ្លាមៗ (Past Simple)។', formula: 'Past Continuous (was/were + V-ing) + when + Past Simple (V2/ed)', examples: ["I <b>was getting</b> on the bus when I <b>dropped</b> my wallet.", "She <b>was cleaning</b> her teeth when the phone <b>rang</b>."]},
+            'question-tags': {title: 'Question Tags (សំណួរបន្ថែម)', content: 'ប្រើដើម្បីបញ្ជាក់ព័ត៌មាន។ ច្បាប់ទូទៅ៖ ប្រយោគស្រប -> Tag បដិសេធ | ប្រយោគបដិសេធ -> Tag ស្រប។ ចំណាំពិសេស៖ បើប្រយោគផ្តើមដោយ Let\'s ត្រូវប្រើ shall we? ជានិច្ច។', formula: 'Auxiliary Verb (+ n\'t) + Subject Pronoun?', examples: ["You <b>broke</b> the glass, <b>didn't</b> you?", "You <b>have</b> never seen this, <b>have</b> you?", "<b>Let's</b> go out, <b>shall we</b>?"]},
+            'prepositions': {title: 'Because vs Because of', content: 'ការប្រើប្រាស់ពាក្យភ្ជាប់បញ្ជាក់ពីហេតុផល។ ត្រូវចងចាំថា Because of មិនអាចតាមក្រោយដោយប្រយោគពេញលេញ (Subject + Verb) នោះទេ គឺវាបូកតែជាមួយនាមប៉ុណ្ណោះ។', formula: 'Because + Clause (S + V) | Because of + Noun/Noun Phrase', examples: ["He stayed home <b>because</b> he was sick. (Clause)", "Trees fell down <b>because of</b> the strong wind. (Noun Phrase)"]},
+            'relative-clauses': {title: 'Relative Clauses (ឃ្លាគុណនាម)', content: 'ប្រើដើម្បីពន្យល់នាមដែលនៅខាងមុខវា។ ត្រូវចាំថា៖ Who (ជំនួសមនុស្សធ្វើប្រធាន), Which (សត្វ/វត្ថុ), Whose (កម្មសិទ្ធិ), Whom (មនុស្សរងអំពើ), Where (ទីកន្លែង)។', formula: 'Noun + Relative Pronoun + ...', examples: ["The person <b>who</b> cuts my hair usually does a good job.", "The tree <b>which</b> grows behind my house gives a lot of shade."]},
+            'gerunds': {title: 'Gerunds & Infinitives', content: 'ប្អូនត្រូវចាំថា កិរិយាសព្ទមួយចំនួនទាមទារ V-ing បន្តពីក្រោយ ហើយរាល់ Preposition (in, on, at, of, without, before, after) ត្រូវតែបូកជាមួយ V-ing ជានិច្ច! ពិសេសកន្សោម "look forward to" ក៏បូក V-ing ដែរ។', formula: 'Preposition + V-ing | look forward to + V-ing', examples: ["I look forward to <b>seeing</b> you.", "We can't live without <b>eating</b>."]},
+            'used-to': {title: 'Used to (ទម្លាប់អតីតកាល)', content: 'Used to ប្រើសម្រាប់និយាយពីទម្លាប់ដែលធ្លាប់កើតឡើងក្នុងអតីតកាល តែឥឡូវលែងមានទៀតហើយ។ ទម្រង់បដិសេធរបស់វាគឺ didn\'t use to (អត់មានអក្សរ d ទេ)។', formula: 'S + used to + V1 | S + didn\'t use to + V1', examples: ["He <b>didn't use to</b> be fat years ago."]},
+            'comparisons': {title: 'Comparisons (ការប្រៀបធៀប)', content: 'ប្រើដើម្បីប្រៀបធៀបនាមពីរ។ បើគុណនាមខ្លី ត្រូវថែម -er ពីក្រោយ បើគុណនាមវែងត្រូវប្រើ more។ តែងតែមានពាក្យ than នៅពីក្រោយ។', formula: 'Adj-er + than | more + Adj + than', examples: ["It's <b>quicker</b> if you take the train.", "losses are <b>greater than</b> profits."]},
+            'causative': {title: 'Causative Form', content: 'ប្រើនៅពេលដែលយើងឱ្យអ្នកផ្សេងធ្វើអ្វីមួយឱ្យយើង (មិនមែនយើងធ្វើខ្លួនឯងទេ)។ ឧទាហរណ៍ យកឡានទៅឱ្យជាងជួសជុល កាត់សក់ ជាដើម។', formula: 'have/get + Object + V3 (Past Participle)', examples: ["I want to have my bedroom <b>repaired</b>."]},
+            'vocab-context': {title: 'ការស្វែងយល់វាក្យសព្ទ (Vocabulary & Phrasal Verbs)', content: 'សំណួរវាក្យសព្ទ (Vocabulary) ទាមទារឲ្យប្អូនៗចេះបកប្រែពាក្យគន្លឹះក្នុងប្រយោគ។ សូមសង្កេតមើលពាក្យដែលនៅជុំវិញចន្លោះ (Context Clues) ដើម្បីទាយអត្ថន័យ។ ឧស្សាហ៍ទន្ទេញពាក្យគន្លឹះ និង Phrasal Verbs ដែលចេញញឹកញាប់!', formula: 'អានប្រយោគជុំវិញ (Context Clues) ដើម្បីស្វែងរកតម្រុយ', examples: ["weather <b>forecast</b> = ការព្យាករណ៍អាកាសធាតុ", "<b>give up</b> smoking = បោះបង់ការជក់បារី", "<b>charge</b> for cleaning = គិតថ្លៃសេវាកម្មសម្អាត"]}
         };
 
-        // អនុគមន៍ស្វែងរកមេរៀនស្វ័យប្រវត្តិផ្អែកលើការពន្យល់ (Explanation) របស់សំណួរនីមួយៗ
+        // AI Tutor matching logic (Covers 100% of questions by using 'vocab-context' as a smart fallback)
         const findLessonForQuestion = (question) => {
             if (!question) return null;
             const exp = question.explanation.toLowerCase();
+
             if (exp.includes('passive')) return 'passive-voice';
             if (exp.includes('conditional')) return 'conditionals';
-            if (exp.includes('continuous') || exp.includes('perfect') || exp.includes('past simple')) return 'tenses';
-            if (exp.includes('question tag')) return 'question-tags';
+            if (exp.includes('perfect')) return 'perfect-tenses';
+            if (exp.includes('continuous') || exp.includes('past simple')) return 'tenses';
+            if (exp.includes('question tag') || exp.includes("let's")) return 'question-tags';
             if (exp.includes('because')) return 'prepositions';
-            if (exp.includes('relative')) return 'relative-clauses';
-            if (question.category === 'Vocabulary') return 'vocab-context';
-            return null;
+            if (exp.includes('relative') || exp.includes('who') || exp.includes('which') || exp.includes('whose')) return 'relative-clauses';
+            if (exp.includes('gerund') || exp.includes('v-ing') || exp.includes('look forward to')) return 'gerunds';
+            if (exp.includes('used to')) return 'used-to';
+            if (exp.includes('comparative') || exp.includes('ប្រៀបធៀប')) return 'comparisons';
+            if (exp.includes('causative')) return 'causative';
+
+            // បើសិនជាសំណួរមិនចូលក្នុងច្បាប់ Grammar ខាងលើទេ វាគឺជាសំណួរ Vocabulary ឬ Phrasal verb
+            return 'vocab-context';
         };
 
-        // --- DATA: VOCABULARY ---
-        const vocabularyData = [
-            {word: "Accident", meaning: "គ្រោះថ្នាក់", example: "I saw a nasty accident this morning."},
-            {word: "Avoid", meaning: "ជៀសវាង", example: "They climbed the fence to avoid paying."},
-            {word: "Borrow", meaning: "ខ្ចី (ពីគេ)", example: "Can I borrow your book?"},
-            {word: "Charge", meaning: "គិតថ្លៃ", example: "How much do they charge for cleaning?"},
-            {word: "Commit", meaning: "ប្រព្រឹត្ត (បទល្មើស)", example: "He committed a crime."},
-            {word: "Complaint", meaning: "ពាក្យបណ្ដឹង", example: "Write a complaint to the manager."},
-            {word: "Compromise", meaning: "ការសម្របសម្រួល", example: "We finally reached a compromise."},
-            {word: "Conduct", meaning: "ដឹកនាំ/ធ្វើ (ពិសោធន៍)", example: "Researchers conducted experiments."},
-            {word: "Cost of living", meaning: "តម្លៃនៃការរស់នៅ", example: "Inflation increased the cost of living."},
-            {word: "Delayed", meaning: "ពន្យារពេល", example: "The flight was delayed by fog."},
-            {word: "Delight", meaning: "សេចក្តីរីករាយ", example: "She cried out with delight."},
-            {word: "Effect", meaning: "ឥទ្ធិពល (Noun)", example: "Violent games have a harmful effect."},
-            {word: "Enroll", meaning: "ចុះឈ្មោះចូលរៀន", example: "Is it possible to enroll now?"},
-            {word: "Expire", meaning: "ផុតកំណត់", example: "My license expires this month."},
-            {word: "Forecast", meaning: "ការព្យាករណ៍", example: "Weather forecast says it will rain."},
-            {word: "Grateful", meaning: "ដឹងគុណ", example: "I am very grateful for your help."},
-            {word: "Harvest", meaning: "ការប្រមូលផល", example: "It is harvest time on the farm."},
-            {word: "Instruction", meaning: "សេចក្តីណែនាំ", example: "Read the instruction carefully."},
-            {word: "Interest", meaning: "ការប្រាក់", example: "The bank pays 10% interest."},
-            {word: "Lend", meaning: "ឱ្យខ្ចី", example: "Can you lend me some money?"},
-            {word: "Pension", meaning: "ប្រាក់សោធននិវត្តន៍", example: "He retired and lives off his pension."},
-            {word: "Postpone", meaning: "ពន្យារពេល", example: "The match was postponed."},
-            {word: "Prohibited", meaning: "ហាមឃាត់", example: "Smoking is prohibited here."},
-            {word: "Punctual", meaning: "ទៀងពេលវេលា", example: "He always arrives on time; he is punctual."},
-            {word: "Reduce", meaning: "កាត់បន្ថយ", example: "Prices are reduced to half."},
-            {word: "Regret", meaning: "សោកស្តាយ", example: "I regret to inform you..."},
-            {word: "Regulation", meaning: "បទបញ្ញត្តិ", example: "It is against the regulation."},
-            {word: "Responsibility", meaning: "ការទទួលខុសត្រូវ", example: "We need to take responsibility."},
-            {word: "Shortage", meaning: "ការខ្វះខាត", example: "There is a shortage of teachers."},
-            {word: "Support", meaning: "គាំទ្រ", example: "Most people support the idea."}
+        // --- DATA: READING DIFFICULT WORDS ---
+        const readingVocabData = [
+            {word: "Abandon", phonetic: "/əˈbændən/", type: "V", meaning: "បោះបង់/ចុះចោល", exampleEn: "They had to abandon the sinking ship.", exampleKh: "ពួកគេត្រូវតែបោះបង់កប៉ាល់ដែលកំពុងលិចនោះចោល។"},
+            {word: "Achievement", phonetic: "/əˈtʃiːvmənt/", type: "N", meaning: "សមិទ្ធិផល/ស្នាដៃ", exampleEn: "Winning the competition was a great achievement.", exampleKh: "ការឈ្នះការប្រកួតគឺជាសមិទ្ធិផលដ៏អស្ចារ្យមួយ។"},
+            {word: "Advantage", phonetic: "/ədˈvɑːntɪdʒ/", type: "N", meaning: "ផលប្រយោជន៍", exampleEn: "One advantage of living in the city is finding a job easily.", exampleKh: "ផលប្រយោជន៍មួយនៃការរស់នៅទីក្រុងគឺងាយស្រួលរកការងារធ្វើ។"},
+            {word: "Advertise", phonetic: "/ˈædvətaɪz/", type: "V", meaning: "ផ្សព្វផ្សាយ", exampleEn: "They advertise their new product on TV.", exampleKh: "ពួកគេផ្សព្វផ្សាយផលិតផលថ្មីរបស់ពួកគេនៅលើទូរទស្សន៍។"},
+            {word: "Affect", phonetic: "/əˈfekt/", type: "V", meaning: "ប៉ះពាល់", exampleEn: "The disease can affect people of all ages.", exampleKh: "ជំងឺនេះអាចប៉ះពាល់ដល់មនុស្សគ្រប់វ័យ។"},
+            {word: "Afford", phonetic: "/əˈfɔːd/", type: "V", meaning: "មានលទ្ធភាព", exampleEn: "I cannot afford to buy a new computer.", exampleKh: "ខ្ញុំគ្មានលទ្ធភាពទិញកុំព្យូទ័រថ្មីទេ។"},
+            {word: "Against", phonetic: "/əˈɡenst/", type: "Prep", meaning: "ប្រឆាំងជំទាស់", exampleEn: "It is against the law to steal.", exampleKh: "វាជាការប្រឆាំងនឹងច្បាប់ក្នុងការលួច។"},
+            {word: "Allow", phonetic: "/əˈlaʊ/", type: "V", meaning: "អនុញ្ញាត", exampleEn: "My parents do not allow me to stay out late.", exampleKh: "ឪពុកម្តាយខ្ញុំមិនអនុញ្ញាតឱ្យខ្ញុំនៅក្រៅយប់ជ្រៅទេ។"},
+            {word: "Apply", phonetic: "/əˈplaɪ/", type: "V", meaning: "ដាក់ពាក្យ", exampleEn: "She decided to apply for the scholarship.", exampleKh: "នាងបានសម្រេចចិត្តដាក់ពាក្យសុំអាហារូបករណ៍។"},
+            {word: "Appropriate", phonetic: "/əˈprəʊpriət/", type: "Adj", meaning: "សមរម្យ", exampleEn: "Wear clothes that are appropriate for the interview.", exampleKh: "ស្លៀកសំលៀកបំពាក់ដែលសមរម្យសម្រាប់ការសម្ភាសន៍។"},
+            {word: "Approve", phonetic: "/əˈpruːv/", type: "V", meaning: "ឯកភាព/អនុញ្ញាត", exampleEn: "The manager will approve your request.", exampleKh: "អ្នកគ្រប់គ្រងនឹងឯកភាពលើសំណើរបស់អ្នក។"},
+            {word: "Arrange", phonetic: "/əˈreɪndʒ/", type: "V", meaning: "រៀបចំ", exampleEn: "I will arrange a meeting for tomorrow.", exampleKh: "ខ្ញុំនឹងរៀបចំការប្រជុំសម្រាប់ថ្ងៃស្អែក។"},
+            {word: "Attractive", phonetic: "/əˈtræktɪv/", type: "Adj", meaning: "ទាក់ទាញ", exampleEn: "The new design is very attractive.", exampleKh: "ការរចនាថ្មីគឺទាក់ទាញខ្លាំងណាស់។"},
+            {word: "Candidate", phonetic: "/ˈkændɪdət/", type: "N", meaning: "បេក្ខជន", exampleEn: "The candidate with the most votes is declared the winner.", exampleKh: "បេក្ខជនដែលមានសម្លេងឆ្នោតច្រើនជាងគេត្រូវបានប្រកាសជាអ្នកឈ្នះ។"},
+            {word: "Cause", phonetic: "/kɔːz/", type: "V/N", meaning: "បង្ក/មូលហេតុ", exampleEn: "Smoking can cause lung cancer.", exampleKh: "ការជក់បារីអាចបង្កឱ្យមានជំងឺមហារីកសួត។"},
+            {word: "Challenge", phonetic: "/ˈtʃælɪndʒ/", type: "V/N", meaning: "ឧបសគ្គ/បញ្ហា", exampleEn: "Learning a new language is a great challenge.", exampleKh: "ការរៀនភាសាថ្មីគឺជាឧបសគ្គដ៏អស្ចារ្យមួយ។"},
+            {word: "Charge", phonetic: "/tʃɑːdʒ/", type: "V", meaning: "គិតលុយ", exampleEn: "How much do you charge for this service?", exampleKh: "តើអ្នកគិតលុយប៉ុន្មានសម្រាប់សេវាកម្មនេះ?"},
+            {word: "Commit", phonetic: "/kəˈmɪt/", type: "V", meaning: "ប្រព្រឹត្ត/តាំងចិត្ត", exampleEn: "He did not commit the crime.", exampleKh: "គាត់មិនបានប្រព្រឹត្តបទឧក្រិដ្ឋនោះទេ។"},
+            {word: "Competitive", phonetic: "/kəmˈpetətɪv/", type: "Adj", meaning: "ដែលប្រកួតប្រជែង", exampleEn: "The business world is very competitive.", exampleKh: "ពិភពជំនួញគឺមានការប្រកួតប្រជែងខ្លាំង។"},
+            {word: "Concentrate", phonetic: "/ˈkɒnsntreɪt/", type: "V", meaning: "ផ្តោតអារម្មណ៍", exampleEn: "I need to concentrate on my studies.", exampleKh: "ខ្ញុំត្រូវផ្តោតអារម្មណ៍លើការសិក្សារបស់ខ្ញុំ។"},
+            {word: "Concern", phonetic: "/kənˈsɜːn/", type: "V/N", meaning: "កង្វល់/ព្រួយបារម្ភ", exampleEn: "Climate change is a major global concern.", exampleKh: "ការប្រែប្រួលអាកាសធាតុគឺជាកង្វល់ពិភពលោកដ៏ធំមួយ។"},
+            {word: "Conclude", phonetic: "/kənˈkluːd/", type: "V", meaning: "បញ្ចប់/សន្និដ្ឋាន", exampleEn: "Let me conclude by thanking everyone.", exampleKh: "សូមឱ្យខ្ញុំបញ្ចប់ដោយការថ្លែងអំណរគុណដល់អ្នកទាំងអស់គ្នា។"},
+            {word: "Conduct", phonetic: "/kənˈdʌkt/", type: "V/N", meaning: "ធ្វើ/ប្រព្រឹត្ត", exampleEn: "Scientists conduct experiments in the lab.", exampleKh: "អ្នកវិទ្យាសាស្ត្រធ្វើការពិសោធន៍នៅក្នុងមន្ទីរពិសោធន៍។"},
+            {word: "Conflict", phonetic: "/ˈkɒnflɪkt/", type: "V/N", meaning: "ទំនាស់/វិវាទ", exampleEn: "They had a conflict over money.", exampleKh: "ពួកគេមានទំនាស់រឿងលុយកាក់។"},
+            {word: "Consider", phonetic: "/kənˈsɪdə/", type: "V", meaning: "គិត/ពិចារណា", exampleEn: "Please consider my advice carefully.", exampleKh: "សូមពិចារណាដំបូន្មានរបស់ខ្ញុំដោយប្រុងប្រយ័ត្ន។"},
+            {word: "Consequence", phonetic: "/ˈkɒnsɪkwəns/", type: "N", meaning: "ផលអវិជ្ជមាន", exampleEn: "Global warming is a consequence of pollution.", exampleKh: "ការឡើងកម្តៅផែនដីគឺជាផលអវិជ្ជមាននៃការបំពុលបរិស្ថាន។"},
+            {word: "Consumer", phonetic: "/kənˈsjuːmə/", type: "N", meaning: "អ្នកប្រើប្រាស់", exampleEn: "Consumers want high-quality products.", exampleKh: "អ្នកប្រើប្រាស់ចង់បានផលិតផលដែលមានគុណភាពខ្ពស់។"},
+            {word: "Contain", phonetic: "/kənˈteɪn/", type: "V", meaning: "ផ្ទុក/មាន", exampleEn: "This box contains important documents.", exampleKh: "ប្រអប់នេះផ្ទុកឯកសារសំខាន់ៗ។"},
+            {word: "Damage", phonetic: "/ˈdæmɪdʒ/", type: "V/N", meaning: "ខូចខាត", exampleEn: "Plastic bags cause serious damage to the environment.", exampleKh: "ថង់ប្លាស្ទិកបង្កការខូចខាតយ៉ាងធ្ងន់ធ្ងរដល់បរិស្ថាន។"},
+            {word: "Decrease", phonetic: "/dɪˈkriːs/", type: "V", meaning: "ថយចុះ", exampleEn: "The number of students decreased this year.", exampleKh: "ចំនួនសិស្សបានថយចុះនៅឆ្នាំនេះ។"},
+            {word: "Delay", phonetic: "/dɪˈleɪ/", type: "V/N", meaning: "ពន្យារពេល", exampleEn: "The flight was delayed by fog.", exampleKh: "ជើងហោះហើរត្រូវបានពន្យារពេលដោយសារអ័ព្ទ។"},
+            {word: "Delighted", phonetic: "/dɪˈlaɪtɪd/", type: "Adj", meaning: "រីករាយ", exampleEn: "I am delighted to meet you.", exampleKh: "ខ្ញុំរីករាយណាស់ដែលបានជួបអ្នក។"},
+            {word: "Demand", phonetic: "/dɪˈmɑːnd/", type: "V/N", meaning: "ទាមទារ/តម្រូវការ", exampleEn: "There is a high demand for organic food.", exampleKh: "មានតម្រូវការខ្ពស់សម្រាប់អាហារសរីរាង្គ។"},
+            {word: "Destruction", phonetic: "/dɪˈstrʌkʃn/", type: "N", meaning: "ការបំផ្លាញ", exampleEn: "The earthquake caused massive destruction.", exampleKh: "ការរញ្ជួយដីបានបង្កការបំផ្លាញយ៉ាងធំធេង។"},
+            {word: "Develop", phonetic: "/dɪˈveləp/", type: "V", meaning: "អភិវឌ្ឍ", exampleEn: "We need to develop new skills.", exampleKh: "យើងត្រូវអភិវឌ្ឍជំនាញថ្មីៗ។"},
+            {word: "Disadvantage", phonetic: "/ˌdɪsədˈvɑːntɪdʒ/", type: "N", meaning: "គុណវិបត្តិ", exampleEn: "One disadvantage is the high cost.", exampleKh: "គុណវិបត្តិមួយគឺតម្លៃខ្ពស់។"},
+            {word: "Disappear", phonetic: "/ˌdɪsəˈpɪə/", type: "V", meaning: "បាត់ខ្លួន/លែងឃើញ", exampleEn: "The sun disappeared behind the clouds.", exampleKh: "ព្រះអាទិត្យបានបាត់ខ្លួននៅពីក្រោយពពក។"},
+            {word: "Disaster", phonetic: "/dɪˈzɑːstə/", type: "N", meaning: "មហន្តរាយ", exampleEn: "The flood was a terrible disaster.", exampleKh: "ទឹកជំនន់គឺជាមហន្តរាយដ៏អាក្រក់មួយ។"},
+            {word: "Discipline", phonetic: "/ˈdɪsəplɪn/", type: "V/N", meaning: "វិន័យ", exampleEn: "School discipline is important for learning.", exampleKh: "វិន័យសាលាគឺសំខាន់សម្រាប់ការរៀនសូត្រ។"},
+            {word: "Discussion", phonetic: "/dɪˈskʌʃn/", type: "N", meaning: "ការពិភាក្សា", exampleEn: "We had a long discussion about the project.", exampleKh: "យើងមានការពិភាក្សាយ៉ាងយូរអំពីគម្រោងនេះ។"},
+            {word: "Effect", phonetic: "/ɪˈfekt/", type: "N", meaning: "ផលជះ/ផលប៉ះពាល់", exampleEn: "Pollution has a bad effect on health.", exampleKh: "ការបំពុលមានផលប៉ះពាល់អាក្រក់ដល់សុខភាព។"},
+            {word: "Eligible", phonetic: "/ˈelɪdʒəbl/", type: "Adj", meaning: "មានសិទ្ធិ", exampleEn: "In Cambodia, everyone over 18 is eligible to vote.", exampleKh: "នៅកម្ពុជា គ្រប់គ្នាដែលមានអាយុលើសពី១៨ឆ្នាំមានសិទ្ធិបោះឆ្នោត។"},
+            {word: "Employment", phonetic: "/ɪmˈplɔɪmənt/", type: "N", meaning: "ការងារ", exampleEn: "The employment rate has increased.", exampleKh: "អត្រាការងារមានការកើនឡើង។"},
+            {word: "Encourage", phonetic: "/ɪnˈkʌrɪdʒ/", type: "V", meaning: "លើកទឹកចិត្ត", exampleEn: "Teachers encourage students to read more.", exampleKh: "គ្រូលើកទឹកចិត្តសិស្សឱ្យអានឱ្យបានច្រើន។"},
+            {word: "Enhance", phonetic: "/ɪnˈhɑːns/", type: "V", meaning: "កែលម្អ", exampleEn: "Reading will enhance your vocabulary.", exampleKh: "ការអាននឹងកែលម្អវាក្យសព្ទរបស់អ្នក។"},
+            {word: "Enormous", phonetic: "/ɪˈnɔːməs/", type: "Adj", meaning: "ធំ", exampleEn: "They live in an enormous house.", exampleKh: "ពួកគេរស់នៅក្នុងផ្ទះដ៏ធំមួយ។"},
+            {word: "Enroll", phonetic: "/ɪnˈrəʊl/", type: "V", meaning: "ចុះឈ្មោះ", exampleEn: "I want to enroll in the English course.", exampleKh: "ខ្ញុំចង់ចុះឈ្មោះចូលរៀនវគ្គភាសាអង់គ្លេស។"},
+            {word: "Environment", phonetic: "/ɪnˈvaɪrənmənt/", type: "N", meaning: "បរិស្ថាន", exampleEn: "We must protect our natural environment.", exampleKh: "យើងត្រូវតែការពារបរិស្ថានធម្មជាតិរបស់យើង។"},
+            {word: "Failure", phonetic: "/ˈfeɪljə/", type: "N", meaning: "បរាជ័យ", exampleEn: "Failure is a step toward success.", exampleKh: "បរាជ័យគឺជាជំហានឆ្ពោះទៅរកភាពជោគជ័យ។"},
+            {word: "Formal", phonetic: "/ˈfɔːml/", type: "Adj", meaning: "ផ្លូវការ", exampleEn: "You should wear formal clothes to the meeting.", exampleKh: "អ្នកគួរតែស្លៀកសម្លៀកបំពាក់ផ្លូវការទៅប្រជុំ។"},
+            {word: "Generate", phonetic: "/ˈdʒenəreɪt/", type: "V", meaning: "បង្កើត/ផលិត", exampleEn: "Wind turbines generate electricity.", exampleKh: "ទួរប៊ីនខ្យល់ផលិតអគ្គិសនី។"},
+            {word: "Give up", phonetic: "/ɡɪv ʌp/", type: "V", meaning: "បោះបង់", exampleEn: "Never give up on your dreams.", exampleKh: "កុំបោះបង់ក្តីស្រមៃរបស់អ្នកឱ្យសោះ។"},
+            {word: "Government", phonetic: "/ˈɡʌvənmənt/", type: "N", meaning: "រដ្ឋាភិបាល", exampleEn: "The government builds new schools.", exampleKh: "រដ្ឋាភិបាលសាងសង់សាលារៀនថ្មី។"},
+            {word: "Heritage", phonetic: "/ˈherɪtɪdʒ/", type: "N", meaning: "មរតក", exampleEn: "Angkor Wat is our national heritage.", exampleKh: "អង្គរវត្តគឺជាមរតកជាតិរបស់យើង។"},
+            {word: "Improve", phonetic: "/ɪmˈpruːv/", type: "V", meaning: "កែលម្អ", exampleEn: "I want to improve my English speaking skills.", exampleKh: "ខ្ញុំចង់កែលម្អជំនាញនិយាយភាសាអង់គ្លេសរបស់ខ្ញុំ។"},
+            {word: "Increase", phonetic: "/ɪnˈkriːs/", type: "V/N", meaning: "បង្កើន", exampleEn: "The price of gas will increase tomorrow.", exampleKh: "តម្លៃសាំងនឹងកើនឡើងនៅថ្ងៃស្អែក។"},
+            {word: "Invent", phonetic: "/ɪnˈvent/", type: "V", meaning: "ផលិតថ្មី/បង្កើតថ្មី", exampleEn: "Who invented the telephone?", exampleKh: "តើអ្នកណាបង្កើតទូរស័ព្ទ?"},
+            {word: "Involve", phonetic: "/ɪnˈvɒlv/", type: "V", meaning: "ពាក់ព័ន្ធ", exampleEn: "The project will involve many people.", exampleKh: "គម្រោងនេះនឹងពាក់ព័ន្ធមនុស្សជាច្រើន។"},
+            {word: "Offer", phonetic: "/ˈɒfə/", type: "V", meaning: "ផ្តល់ឱ្យ", exampleEn: "They offer good services to customers.", exampleKh: "ពួកគេផ្តល់សេវាកម្មល្អដល់អតិថិជន។"},
+            {word: "Opportunity", phonetic: "/ˌɒpəˈtjuːnəti/", type: "N", meaning: "ឱកាស", exampleEn: "He was given the opportunity to study abroad.", exampleKh: "គាត់ត្រូវបានផ្តល់ឱកាសឱ្យទៅសិក្សានៅក្រៅប្រទេស។"},
+            {word: "Optimistic", phonetic: "/ˌɒptɪˈmɪstɪk/", type: "Adj", meaning: "សុទិដ្ឋិនិយម", exampleEn: "She is optimistic about her future.", exampleKh: "នាងមានសុទិដ្ឋិនិយមចំពោះអនាគតរបស់នាង។"},
+            {word: "Overcome", phonetic: "/ˌəʊvəˈkʌm/", type: "V", meaning: "ជម្នះ", exampleEn: "She learned how to overcome her fear.", exampleKh: "នាងបានរៀនពីរបៀបជម្នះភាពភ័យខ្លាចរបស់នាង។"},
+            {word: "Participate", phonetic: "/pɑːˈtɪsɪpeɪt/", type: "V", meaning: "ចូលរួម", exampleEn: "All students must participate in the event.", exampleKh: "សិស្សទាំងអស់ត្រូវតែចូលរួមក្នុងកម្មវិធីនេះ។"},
+            {word: "Perform", phonetic: "/pəˈfɔːm/", type: "V", meaning: "ប្រព្រឹត្ត/សម្តែង", exampleEn: "The band will perform tonight.", exampleKh: "ក្រុមតន្ត្រីនឹងសម្តែងនៅយប់នេះ។"},
+            {word: "Permit", phonetic: "/pəˈmɪt/", type: "V/N", meaning: "អនុញ្ញាត", exampleEn: "Smoking is not permitted here.", exampleKh: "ការជក់បារីមិនត្រូវបានអនុញ្ញាតនៅទីនេះទេ។"},
+            {word: "Persuade", phonetic: "/pəˈsweɪd/", type: "V", meaning: "បញ្ចុះបញ្ចូល", exampleEn: "I tried to persuade him to join us.", exampleKh: "ខ្ញុំបានព្យាយាមបញ្ចុះបញ្ចូលគាត់ឱ្យចូលរួមជាមួយយើង។"},
+            {word: "Pessimistic", phonetic: "/ˌpesɪˈmɪstɪk/", type: "Adj", meaning: "ទុទិដ្ឋិនិយម", exampleEn: "Don't be so pessimistic about everything.", exampleKh: "កុំទុទិដ្ឋិនិយមពេកចំពោះរឿងគ្រប់យ៉ាង។"},
+            {word: "Pollute", phonetic: "/pəˈluːt/", type: "V", meaning: "បំពុលបរិស្ថាន", exampleEn: "Plastic bags pollute the rivers.", exampleKh: "ថង់ប្លាស្ទិកបំពុលទន្លេ។"},
+            {word: "Predict", phonetic: "/prɪˈdɪkt/", type: "V", meaning: "ព្យាករណ៍", exampleEn: "It is hard to predict the weather.", exampleKh: "វាពិបាកក្នុងការព្យាករណ៍អាកាសធាតុ។"},
+            {word: "Prevent", phonetic: "/prɪˈvent/", type: "V", meaning: "ការពារ/រារាំង", exampleEn: "Vaccines help prevent diseases.", exampleKh: "វ៉ាក់សាំងជួយការពារជំងឺ។"},
+            {word: "Privacy", phonetic: "/ˈprɪvəsi/", type: "N", meaning: "ព័ត៌មានឯកជន", exampleEn: "We must respect their privacy.", exampleKh: "យើងត្រូវតែគោរពព័ត៌មានឯកជនរបស់ពួកគេ។"},
+            {word: "Produce", phonetic: "/prəˈdjuːs/", type: "V", meaning: "ផលិត", exampleEn: "This factory produces cars.", exampleKh: "រោងចក្រនេះផលិតឡាន។"},
+            {word: "Profit", phonetic: "/ˈprɒfɪt/", type: "V/N", meaning: "ប្រាក់ចំណេញ", exampleEn: "The company made a big profit this year.", exampleKh: "ក្រុមហ៊ុនទទួលបានប្រាក់ចំណេញច្រើននៅឆ្នាំនេះ។"},
+            {word: "Progress", phonetic: "/ˈprəʊɡres/", type: "V/N", meaning: "វឌ្ឍនភាព", exampleEn: "He is making good progress in his studies.", exampleKh: "គាត់កំពុងមានវឌ្ឍនភាពល្អក្នុងការសិក្សា។"},
+            {word: "Prohibit", phonetic: "/prəˈhɪbɪt/", type: "V", meaning: "ហាមឃាត់", exampleEn: "Using phones during exams is prohibited.", exampleKh: "ការប្រើប្រាស់ទូរស័ព្ទអំឡុងពេលប្រឡងត្រូវបានហាមឃាត់។"},
+            {word: "Promote", phonetic: "/prəˈməʊt/", type: "V", meaning: "ផ្សព្វផ្សាយ/លើកកម្ពស់", exampleEn: "We need to promote healthy eating.", exampleKh: "យើងត្រូវលើកកម្ពស់ការញ៉ាំអាហារល្អចំពោះសុខភាព។"},
+            {word: "Proper", phonetic: "/ˈprɒpə/", type: "Adj", meaning: "សមរម្យ", exampleEn: "Make sure you use the proper tools.", exampleKh: "ត្រូវប្រាកដថាអ្នកប្រើប្រាស់ឧបករណ៍ដែលសមរម្យ។"},
+            {word: "Protect", phonetic: "/prəˈtekt/", type: "V", meaning: "ការពារ", exampleEn: "We must protect wild animals.", exampleKh: "យើងត្រូវតែការពារសត្វព្រៃ។"},
+            {word: "Punctual", phonetic: "/ˈpʌŋktʃuəl/", type: "Adj", meaning: "ទាន់ពេល", exampleEn: "Please be punctual for the meeting.", exampleKh: "សូមមកឱ្យទាន់ពេលសម្រាប់ការប្រជុំ។"},
+            {word: "Punishment", phonetic: "/ˈpʌnɪʃmənt/", type: "N", meaning: "ពិន័យ", exampleEn: "Physical punishment is not allowed in schools.", exampleKh: "ការពិន័យរាងកាយមិនត្រូវបានអនុញ្ញាតក្នុងសាលារៀនទេ។"},
+            {word: "Qualification", phonetic: "/ˌkwɒlɪfɪˈkeɪʃn/", type: "N", meaning: "គុណវុឌ្ឍិ/កម្រិតវប្បធម៌", exampleEn: "What are your educational qualifications?", exampleKh: "តើកម្រិតវប្បធម៌អប់រំរបស់អ្នកជាអ្វី?"},
+            {word: "Reach", phonetic: "/riːtʃ/", type: "V/N", meaning: "ឈោងដល់/ទៅដល់", exampleEn: "We will reach the city soon.", exampleKh: "យើងនឹងទៅដល់ទីក្រុងក្នុងពេលឆាប់ៗ។"},
+            {word: "Recover", phonetic: "/rɪˈkʌvə/", type: "V", meaning: "ជាពីជំងឺ/យកមកវិញ", exampleEn: "He will recover from the flu soon.", exampleKh: "គាត់នឹងជាពីជំងឺផ្តាសាយក្នុងពេលឆាប់ៗ។"},
+            {word: "Recycle", phonetic: "/ˌriːˈsaɪkl/", type: "V", meaning: "ច្នៃប្រើប្រាស់ឡើងវិញ", exampleEn: "We should recycle paper and plastic.", exampleKh: "យើងគួរតែច្នៃក្រដាសនិងប្លាស្ទិកប្រើប្រាស់ឡើងវិញ។"},
+            {word: "Reduce", phonetic: "/rɪˈdjuːs/", type: "V", meaning: "កាត់បន្ថយ", exampleEn: "We must reduce our use of plastic.", exampleKh: "យើងត្រូវតែកាត់បន្ថយការប្រើប្រាស់ប្លាស្ទិករស់យើង។"},
+            {word: "Refuse", phonetic: "/rɪˈfjuːz/", type: "V", meaning: "បដិសេធន៍", exampleEn: "She refused to answer the question.", exampleKh: "នាងបានបដិសេធន៍មិនឆ្លើយសំណួរនោះទេ។"},
+            {word: "Regret", phonetic: "/rɪˈɡret/", type: "V/N", meaning: "សោកស្តាយ", exampleEn: "I regret not studying harder.", exampleKh: "ខ្ញុំសោកស្តាយដែលមិនបានរៀនឱ្យខ្លាំងជាងនេះ។"},
+            {word: "Reject", phonetic: "/rɪˈdʒekt/", type: "V", meaning: "បដិសេធន៍", exampleEn: "The company rejected his application.", exampleKh: "ក្រុមហ៊ុនបានបដិសេធពាក្យសុំរបស់គាត់។"},
+            {word: "Requirement", phonetic: "/rɪˈkwaɪəmənt/", type: "N", meaning: "តម្រូវការ", exampleEn: "A degree is a requirement for this job.", exampleKh: "សញ្ញាបត្រគឺជាតម្រូវការសម្រាប់ការងារនេះ។"},
+            {word: "Responsibility", phonetic: "/rɪˌspɒnsəˈbɪləti/", type: "N", meaning: "ទំនួលខុសត្រូវ", exampleEn: "Road safety is everyone's responsibility.", exampleKh: "សុវត្ថិភាពចរាចរណ៍គឺជាទំនួលខុសត្រូវរបស់មនុស្សគ្រប់គ្នា។"},
+            {word: "Retirement", phonetic: "/rɪˈtaɪəmənt/", type: "N", meaning: "ការចូលនិវត្តន៍", exampleEn: "He saved a lot of money for his retirement.", exampleKh: "គាត់បានសន្សំប្រាក់ច្រើនសម្រាប់ការចូលនិវត្តន៍របស់គាត់។"},
+            {word: "Regular", phonetic: "/ˈreɡjələ/", type: "Adj", meaning: "ទៀងទាត់", exampleEn: "Regular exercise is good for you.", exampleKh: "ការហាត់ប្រាណទៀងទាត់គឺល្អសម្រាប់អ្នក។"},
+            {word: "Satisfaction", phonetic: "/ˌsætɪsˈfækʃn/", type: "N", meaning: "ការពេញចិត្ត", exampleEn: "Customer satisfaction is our priority.", exampleKh: "ការពេញចិត្តរបស់អតិថិជនគឺជាអាទិភាពរបស់យើង។"},
+            {word: "Serious", phonetic: "/ˈsɪəriəs/", type: "Adj", meaning: "ធ្ងន់ធ្ងរ", exampleEn: "Malaria is a serious disease.", exampleKh: "ជំងឺគ្រុនចាញ់គឺជាជំងឺដ៏ធ្ងន់ធ្ងរមួយ។"},
+            {word: "Solution", phonetic: "/səˈluːʃn/", type: "N", meaning: "ដំណោះស្រាយ", exampleEn: "We need to find a solution to this problem.", exampleKh: "យើងត្រូវស្វែងរកដំណោះស្រាយចំពោះបញ្ហានេះ។"},
+            {word: "Succeed", phonetic: "/səkˈsiːd/", type: "V", meaning: "ជោគជ័យ", exampleEn: "If you work hard, you will succeed.", exampleKh: "ប្រសិនបើអ្នកប្រឹងប្រែង អ្នកនឹងជោគជ័យ។"},
+            {word: "Support", phonetic: "/səˈpɔːt/", type: "V/N", meaning: "គាំទ្រ", exampleEn: "My family always supports me.", exampleKh: "គ្រួសារខ្ញុំតែងតែគាំទ្រខ្ញុំ។"},
+            {word: "Survey", phonetic: "/ˈsɜːveɪ/", type: "V/N", meaning: "ស្ទង់មតិ", exampleEn: "They conducted a survey on online learning.", exampleKh: "ពួកគេបានធ្វើការស្ទង់មតិលើការរៀនតាមអនឡាញ។"},
+            {word: "Treatment", phonetic: "/ˈtriːtmənt/", type: "N", meaning: "ការព្យាបាល", exampleEn: "He is receiving treatment at the hospital.", exampleKh: "គាត់កំពុងទទួលការព្យាបាលនៅមន្ទីរពេទ្យ។"},
+            {word: "Unemployed", phonetic: "/ˌʌnɪmˈplɔɪd/", type: "Adj", meaning: "គ្មានការងារធ្វើ", exampleEn: "Many people were unemployed during the pandemic.", exampleKh: "មនុស្សជាច្រើនគ្មានការងារធ្វើអំឡុងពេលជំងឺរាតត្បាត។"},
+            {word: "Unique", phonetic: "/juˈniːk/", type: "Adj", meaning: "ប្លែក/ខុសគេ", exampleEn: "Every person has a unique fingerprint.", exampleKh: "មនុស្សគ្រប់រូបមានស្នាមម្រាមដៃប្លែកខុសគេ។"},
+            {word: "Weep", phonetic: "/wiːp/", type: "V", meaning: "យំ", exampleEn: "She began to weep after hearing the sad news.", exampleKh: "នាងចាប់ផ្តើមយំបន្ទាប់ពីបានឮដំណឹងដ៏សោកសៅ។"}
         ];
+
+        // New Component: Reading Vocabulary Screen
+        const ReadingVocabScreen = ({onBack}) => {
+            const [searchTerm, setSearchTerm] = useState("");
+            const filteredVocab = readingVocabData.filter(v =>
+                v.word.toLowerCase().includes(searchTerm.toLowerCase()) || v.meaning.includes(searchTerm)
+            );
+
+            return (
+                <div className="flex flex-col min-h-screen bg-gray-50 w-full fade-in">
+                    <div className="bg-white shadow-md p-4 sticky top-0 z-10 space-y-3">
+                        <div className="max-w-3xl mx-auto flex items-center gap-3">
+                            <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition">
+                                <i className="fas fa-arrow-left text-xl"></i>
+                            </button>
+                            <h2 className="text-xl font-bold text-gray-800 khmer-text">ពាក្យពិបាកពី Reading</h2>
+                        </div>
+                        <div className="max-w-3xl mx-auto relative">
+                            <i className="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            <input
+                                type="text"
+                                placeholder="ស្វែងរកពាក្យ..."
+                                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500 khmer-text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex-1 p-4 max-w-3xl mx-auto w-full pb-20 custom-scroll overflow-y-auto">
+                        <div className="grid grid-cols-1 gap-4">
+                            {filteredVocab.map((v, index) => (
+                                <div key={index} className="bg-white p-5 rounded-2xl shadow-sm border border-l-4 border-l-blue-500 hover:shadow-md transition">
+                                    <div className="flex justify-between items-start mb-3 border-b pb-2">
+                                        <h3 className="text-xl font-bold text-blue-800">{v.word} <span className="text-sm font-normal text-gray-400 italic">({v.type})</span></h3>
+                                        <span className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full khmer-text text-sm shadow-sm">{v.meaning}</span>
+                                    </div>
+                                    <div className="bg-gray-50 p-3 rounded-lg">
+                                        <p className="text-gray-700 font-medium mb-1"><i className="fas fa-quote-left text-blue-300 mr-2"></i>{v.exampleEn}</p>
+                                        <p className="text-gray-500 text-sm khmer-text border-l-2 border-blue-200 pl-3 ml-2">{v.exampleKh}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
 
         // --- DATA: GRAMMAR & VOCAB QUESTIONS ---
         const allQuestionsData = [
@@ -923,9 +965,7 @@
 
         // --- SUB-COMPONENTS ---
 
-        const WelcomeScreen = ({onStart, onTips, onDashboard, onExit}) => {
-            const [showExitModal, setShowExitModal] = useState(false);
-
+        const WelcomeScreen = ({onStart, onTips, onDashboard}) => {
             return (
                 <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center fade-in bg-gradient-to-br from-blue-900 to-indigo-800 text-white w-full relative">
                     <div className="mb-8 p-6 bg-white bg-opacity-10 rounded-full shadow-2xl animate-bounce-slow">
@@ -959,39 +999,7 @@
                         >
                             <i className="fas fa-chart-line"></i> ប្រវត្តិសិក្សា
                         </button>
-                        <button
-                            onClick={() => setShowExitModal(true)}
-                            className="khmer-text bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 text-xl flex items-center justify-center gap-3"
-                        >
-                            <i className="fas fa-sign-out-alt"></i> ចាកចេញ
-                        </button>
                     </div>
-
-                    {/* Exit Modal */}
-                    {showExitModal && (
-                        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-                            <div className="bg-white rounded-2xl p-6 max-w-sm w-full text-gray-800 shadow-2xl animate-bounce-slow" style={{animation: 'none'}}>
-                                <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i className="fas fa-question text-3xl"></i>
-                                </div>
-                                <h3 className="text-xl font-bold mb-6 khmer-text text-gray-800">តើអ្នកពិតជាចង់ចាកចេញមែនទេ?</h3>
-                                <div className="flex gap-4 justify-center">
-                                    <button
-                                        onClick={() => setShowExitModal(false)}
-                                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-xl khmer-text transition w-1/2"
-                                    >
-                                        នៅបន្ត
-                                    </button>
-                                    <button
-                                        onClick={onExit}
-                                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-xl khmer-text transition w-1/2"
-                                    >
-                                        ចាកចេញ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
 
                     <div className="mt-12 text-sm opacity-60">
                         © 2026 BacII Prep. Updated from Official Exam 2014-2025.
@@ -999,20 +1007,6 @@
                 </div>
             );
         };
-
-        const GoodbyeScreen = () => (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4 text-center fade-in w-full">
-                <i className="fas fa-hand-holding-heart text-6xl text-pink-500 mb-6 animate-bounce"></i>
-                <h1 className="text-4xl font-bold mb-4 khmer-text">សូមអរគុណ!</h1>
-                <p className="text-xl opacity-80 mb-8 khmer-text">ជួបគ្នាពេលក្រោយ។</p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition khmer-text shadow-lg hover:shadow-blue-500/50"
-                >
-                    <i className="fas fa-redo mr-2"></i> ចូលកម្មវិធីម្ដងទៀត
-                </button>
-            </div>
-        );
 
         // New Component: Tips Menu Screen
         const TipsMenuScreen = ({onSelectCategory, onBack}) => {
@@ -1029,6 +1023,7 @@
                         <h2 className="text-3xl font-bold text-gray-800 mb-8 khmer-text">គន្លឹះ និង វាក្យសព្ទ</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* ប៊ូតុង វេយ្យាករណ៍ */}
                             <button
                                 onClick={() => onSelectCategory('grammar-tips')}
                                 className="bg-gradient-to-br from-green-500 to-green-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group"
@@ -1040,33 +1035,22 @@
                                 <p className="opacity-80 text-sm khmer-text">មេរៀនសង្ខេប និងរូបមន្តសំខាន់ៗ</p>
                             </button>
 
-                            <button
-                                onClick={() => onSelectCategory('vocab-list')}
-                                className="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group"
-                            >
-                                <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition">
-                                    <i className="fas fa-font text-3xl"></i>
-                                </div>
-                                <h3 className="text-2xl font-bold khmer-text">វាក្យសព្ទ (Vocabulary)</h3>
-                                <p className="opacity-80 text-sm khmer-text">ពាក្យគន្លឹះ និងឧទាហរណ៍</p>
-                            </button>
-                            {/* ប៊ូតុងទី ៣ ថ្មី៖ Flashcards */}
+                            {/* ប៊ូតុង Flashcard (វាក្យសព្ទ១០២ពាក្យ + ពាក្យបង្កើតខ្លួនឯង) */}
                             <button
                                 onClick={() => onSelectCategory('flashcards')}
-                                className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group md:col-span-2"
+                                className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex flex-col items-center gap-4 group"
                             >
                                 <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition">
                                     <i className="fas fa-clone text-3xl"></i>
                                 </div>
                                 <h3 className="text-2xl font-bold khmer-text">ហ្វឹកហាត់ Flashcards</h3>
-                                <p className="opacity-80 text-sm khmer-text">រៀនទន្ទេញពាក្យតាមរយៈសន្លឹកកាត</p>
+                                <p className="opacity-80 text-sm khmer-text">រៀនទន្ទេញ និងបង្កើតពាក្យថ្មី</p>
                             </button>
                         </div>
                     </div>
                 </div>
             );
         };
-
         // New Component: Grammar Tips Screen
         const GrammarTipsScreen = ({onBack}) => {
             return (
@@ -1109,134 +1093,103 @@
             );
         };
 
-        // New Component: Vocabulary List Screen
-        const VocabularyListScreen = ({onBack}) => {
-            const [searchTerm, setSearchTerm] = useState("");
+        const AddFlashcardModal = ({onClose, onSave}) => {
+            const [word, setWord] = useState('');
+            const [phonetic, setPhonetic] = useState('');
+            const [type, setType] = useState('');
+            const [meaning, setMeaning] = useState('');
+            const [exampleEn, setExampleEn] = useState('');
+            const [exampleKh, setExampleKh] = useState('');
 
-            const filteredVocab = vocabularyData.filter(v =>
-                v.word.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                v.meaning.includes(searchTerm)
-            );
+            const handleSave = () => {
+                if (!word.trim() || !meaning.trim()) {
+                    alert("សូមបញ្ចូលពាក្យអង់គ្លេស និងការបកប្រែជាខ្មែរឱ្យបានត្រឹមត្រូវ!");
+                    return;
+                }
+                onSave({word, phonetic, type, meaning, exampleEn, exampleKh});
+                onClose();
+            };
 
             return (
-                <div className="flex flex-col min-h-screen bg-gray-50 w-full">
-                    <div className="bg-white shadow-md p-4 sticky top-0 z-10 space-y-3">
-                        <div className="max-w-3xl mx-auto flex items-center gap-3">
-                            <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition">
-                                <i className="fas fa-arrow-left text-xl"></i>
-                            </button>
-                            <h2 className="text-xl font-bold text-gray-800 khmer-text">បញ្ជីវាក្យសព្ទ</h2>
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[80] p-4 backdrop-blur-sm fade-in">
+                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+                        <div className="bg-indigo-600 p-5 flex justify-between items-center text-white">
+                            <h2 className="text-xl font-bold khmer-text"><i className="fas fa-plus-circle mr-2"></i>បង្កើតពាក្យថ្មី</h2>
+                            <button onClick={onClose} className="hover:text-red-300 transition text-2xl"><i className="fas fa-times"></i></button>
                         </div>
-                        <div className="max-w-3xl mx-auto relative">
-                            <i className="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                            <input
-                                type="text"
-                                placeholder="ស្វែងរកពាក្យ..."
-                                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500 khmer-text"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex-1 p-4 max-w-3xl mx-auto w-full fade-in pb-20 custom-scroll overflow-y-auto">
-                        <div className="grid grid-cols-1 gap-3">
-                            {filteredVocab.map((v, index) => (
-                                <div key={index} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <h3 className="text-lg font-bold text-indigo-700">{v.word}</h3>
-                                        <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded khmer-text">{v.meaning}</span>
-                                    </div>
-                                    <p className="text-sm text-gray-500 italic border-l-2 border-indigo-200 pl-3">
-                                        "{v.example}"
-                                    </p>
-                                </div>
-                            ))}
-                            {filteredVocab.length === 0 && (
-                                <div className="text-center text-gray-400 py-10 khmer-text">
-                                    មិនមានពាក្យដែលអ្នកស្វែងរកទេ
-                                </div>
-                            )}
+                        <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto custom-scroll">
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">ពាក្យអង់គ្លេស *</label><input type="text" value={word} onChange={(e) => setWord(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500 font-bold text-indigo-700" /></div>
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">ការបញ្ចេញសំឡេង</label><input type="text" value={phonetic} onChange={(e) => setPhonetic(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500 font-mono text-gray-600" placeholder="/səkˈses/" /></div>
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">ថ្នាក់ពាក្យ</label><input type="text" value={type} onChange={(e) => setType(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500" placeholder="N, V, Adj" /></div>
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">អត្ថន័យជាខ្មែរ *</label><input type="text" value={meaning} onChange={(e) => setMeaning(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500 khmer-text font-bold text-yellow-600" /></div>
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">ឧទាហរណ៍អង់គ្លេស</label><textarea value={exampleEn} onChange={(e) => setExampleEn(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500" rows="2"></textarea></div>
+                            <div><label className="block text-sm font-bold text-gray-700 mb-1 khmer-text">បកប្រែឧទាហរណ៍</label><textarea value={exampleKh} onChange={(e) => setExampleKh(e.target.value)} className="w-full border-2 border-gray-200 rounded-xl px-4 py-2 focus:outline-none focus:border-indigo-500 khmer-text" rows="2"></textarea></div>
+                            <button onClick={handleSave} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform hover:scale-105 khmer-text mt-4 text-lg"><i className="fas fa-save mr-2"></i>រក្សាទុកពាក្យ</button>
                         </div>
                     </div>
                 </div>
             );
         };
         // New Component: Flashcard Screen
-        const FlashcardScreen = ({vocabList, onBack}) => {
-            const [currentIndex, setCurrentIndex] = useState(0);
-            const [isFlipped, setIsFlipped] = useState(false);
+        const FlashcardScreen = ({vocabList, onBack, onAddNew}) => {
+        const [currentIndex, setCurrentIndex] = useState(0);
+        const [isFlipped, setIsFlipped] = useState(false);
+        
+        if (!vocabList || vocabList.length === 0) return <div className="min-h-screen flex items-center justify-center">No Data</div>;
+        
+        const nextCard = () => { setIsFlipped(false); setTimeout(() => { setCurrentIndex((prev) => (prev + 1) % vocabList.length); }, 150); };
+        const prevCard = () => { setIsFlipped(false); setTimeout(() => { setCurrentIndex((prev) => (prev - 1 + vocabList.length) % vocabList.length); }, 150); };
+        const card = vocabList[currentIndex];
 
-            const nextCard = () => {
-                setIsFlipped(false);
-                setTimeout(() => {
-                    setCurrentIndex((prev) => (prev + 1) % vocabList.length);
-                }, 150); // ពន្យារពេលបន្តិចដើម្បីឱ្យកាតវិលត្រឡប់សិន
-            };
-
-            const prevCard = () => {
-                setIsFlipped(false);
-                setTimeout(() => {
-                    setCurrentIndex((prev) => (prev - 1 + vocabList.length) % vocabList.length);
-                }, 150);
-            };
-
-            const card = vocabList[currentIndex];
-
-            return (
-                <div className="flex flex-col min-h-screen bg-gray-50 w-full fade-in">
-                    <div className="bg-white shadow-md p-4 sticky top-0 z-10">
-                        <div className="max-w-3xl mx-auto flex justify-between items-center">
-                            <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition">
-                                <i className="fas fa-arrow-left text-xl"></i>
-                            </button>
-                            <h2 className="text-xl font-bold text-gray-800 khmer-text">
-                                រៀនពាក្យ (Flashcards) {currentIndex + 1}/{vocabList.length}
-                            </h2>
-                            <div className="w-6"></div>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 flex flex-col items-center justify-center p-4">
-                        {/* កាត Flashcard អាចចុចត្រឡប់បាន */}
-                        <div
-                            className="relative w-full max-w-sm h-80 perspective-1000 cursor-pointer group"
-                            onClick={() => setIsFlipped(!isFlipped)}
-                        >
-                            <div className={`w-full h-full transition-transform duration-500 transform-style-preserve-3d relative ${isFlipped ? 'rotate-y-180' : ''}`}>
-                                {/* ផ្ទៃខាងមុខ (ភាសាអង់គ្លេស) */}
-                                <div className="absolute w-full h-full bg-white rounded-3xl shadow-xl border-2 border-indigo-100 flex flex-col items-center justify-center backface-hidden p-6 text-center transform group-hover:scale-105 transition">
-                                    <span className="text-gray-400 uppercase text-xs font-bold absolute top-6 khmer-text bg-gray-100 px-3 py-1 rounded-full"><i className="fas fa-hand-pointer"></i> ចុចដើម្បីមើលអត្ថន័យ</span>
-                                    <h3 className="text-4xl font-bold text-indigo-700">{card.word}</h3>
-                                </div>
-
-                                {/* ផ្ទៃខាងក្រោយ (ភាសាខ្មែរ) */}
-                                <div className="absolute w-full h-full bg-indigo-600 rounded-3xl shadow-xl border-2 border-indigo-700 flex flex-col items-center justify-center backface-hidden p-6 text-center rotate-y-180 text-white transform group-hover:scale-105 transition">
-                                    <h3 className="text-3xl font-bold khmer-text mb-4 text-yellow-300">{card.meaning}</h3>
-                                    <div className="bg-indigo-800 bg-opacity-50 p-3 rounded-xl">
-                                        <p className="text-lg italic opacity-90">"{card.example}"</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* ប៊ូតុងបញ្ជា */}
-                        <div className="flex items-center gap-6 mt-12">
-                            <button onClick={prevCard} className="w-14 h-14 bg-white rounded-full shadow-lg text-indigo-600 hover:bg-indigo-50 transition flex items-center justify-center text-xl">
-                                <i className="fas fa-arrow-left"></i>
-                            </button>
-                            <button onClick={() => setIsFlipped(!isFlipped)} className="px-6 py-3 bg-indigo-100 text-indigo-700 rounded-full font-bold khmer-text shadow-sm hover:bg-indigo-200 transition">
-                                <i className="fas fa-sync-alt mr-2"></i> ត្រឡប់កាត
-                            </button>
-                            <button onClick={nextCard} className="w-14 h-14 bg-indigo-600 rounded-full shadow-lg text-white hover:bg-indigo-700 transition flex items-center justify-center text-xl">
-                                <i className="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
+        return (
+            <div className="flex flex-col min-h-screen bg-gray-50 w-full fade-in">
+                <div className="bg-white shadow-md p-4 sticky top-0 z-10">
+                    <div className="max-w-3xl mx-auto flex justify-between items-center">
+                        <button onClick={onBack} className="text-gray-500 hover:text-blue-600 transition font-bold"><i className="fas fa-arrow-left text-xl"></i> ត្រឡប់ក្រោយ</button>
+                        <h2 className="text-xl font-bold text-gray-800 khmer-text hidden md:block">Flashcard {currentIndex + 1}/{vocabList.length}</h2>
+                        <button onClick={onAddNew} className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-4 py-2 rounded-lg font-bold transition flex items-center gap-2 text-sm khmer-text shadow-sm">
+                            <i className="fas fa-plus"></i> បន្ថែមពាក្យ
+                        </button>
                     </div>
                 </div>
-            );
-        };
-
+                <div className="flex-1 flex flex-col items-center justify-center p-4">
+                    
+                    {/* កែប្រែ Hover Scale មកដាក់លើ Container ធំវិញ ដើម្បីកុំឱ្យជាន់គ្នាជាមួយ Rotate 3D */}
+                    <div className="relative w-full max-w-md h-[400px] perspective-1000 cursor-pointer group hover:scale-105 transition-transform duration-300" onClick={() => setIsFlipped(!isFlipped)}>
+                        <div className={`w-full h-full transition-transform duration-500 transform-style-preserve-3d relative ${isFlipped ? 'rotate-y-180' : ''}`}>
+                            
+                            {/* ផ្ទៃខាងមុខ: ពាក្យអង់គ្លេស និង Phonetic */}
+                            <div className="absolute w-full h-full bg-white rounded-3xl shadow-xl border-2 border-indigo-100 flex flex-col items-center justify-center backface-hidden p-6 text-center">
+                                <span className="text-gray-400 uppercase text-xs font-bold absolute top-6 khmer-text bg-gray-100 px-4 py-1.5 rounded-full"><i className="fas fa-hand-pointer"></i> ចុចកាតដើម្បីមើលអត្ថន័យ</span>
+                                <h3 className="text-5xl font-bold text-indigo-700 mb-3">{card.word}</h3>
+                                {card.phonetic && <p className="text-xl text-indigo-400 font-mono mb-2">{card.phonetic}</p>}
+                                {card.type && <span className="text-xl font-bold text-gray-400 italic">({card.type})</span>}
+                            </div>
+                            
+                            {/* ផ្ទៃខាងក្រោយ: ការបកប្រែ និង ឧទាហរណ៍ */}
+                            <div className="absolute w-full h-full bg-indigo-600 rounded-3xl shadow-2xl border-2 border-indigo-700 flex flex-col items-center justify-center backface-hidden p-6 text-center rotate-y-180 text-white">
+                                <h4 className="text-2xl font-bold text-indigo-200 mb-1">{card.word}</h4>
+                                {card.phonetic && <p className="text-sm text-indigo-300 font-mono mb-2">{card.phonetic}</p>}
+                                <h3 className="text-3xl font-bold khmer-text mb-4 text-yellow-300">{card.meaning}</h3>
+                                <div className="bg-indigo-800 bg-opacity-60 p-4 rounded-xl w-full text-left shadow-inner overflow-y-auto custom-scroll max-h-[160px]">
+                                    {card.exampleEn && <p className="text-base italic mb-2 text-indigo-50 leading-relaxed font-medium"><i className="fas fa-quote-left text-indigo-300 mr-2 text-xs"></i>{card.exampleEn}</p>}
+                                    {card.exampleKh && <p className="text-sm khmer-text border-l-2 border-indigo-400 pl-3 text-indigo-100 leading-relaxed opacity-90">{card.exampleKh}</p>}
+                                    {(!card.exampleEn && !card.exampleKh) && <p className="text-sm text-center text-indigo-300 khmer-text mt-4">មិនមានឧទាហរណ៍ទេ</p>}
+                                </div>
+                                <span className="text-indigo-300 uppercase text-xs font-bold absolute bottom-6 khmer-text opacity-70"><i className="fas fa-sync-alt"></i> ចុចដើម្បីត្រឡប់វិញ</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-6 mt-12">
+                        <button onClick={(e) => { e.stopPropagation(); prevCard(); }} className="w-14 h-14 bg-white rounded-full shadow-lg text-indigo-600 hover:bg-indigo-50 transition flex items-center justify-center text-xl"><i className="fas fa-arrow-left"></i></button>
+                        <span className="text-gray-500 font-bold md:hidden">{currentIndex + 1}/{vocabList.length}</span>
+                        <button onClick={(e) => { e.stopPropagation(); nextCard(); }} className="w-14 h-14 bg-indigo-600 rounded-full shadow-lg text-white hover:bg-indigo-700 transition flex items-center justify-center text-xl"><i className="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
         // New Component: Writing Screen
         const WritingScreen = ({year, onBack}) => {
             // Find the specific writing outline for the selected year
@@ -1481,16 +1434,16 @@
                         </div>
                         {/* Progress Bar */}
                         <div className="w-full bg-gray-200 h-2 mt-4 rounded-full overflow-hidden max-w-3xl mx-auto">
-                            <div 
+                            <div
                                 className="bg-blue-600 h-full transition-all duration-500"
-                                style={{ width: `${((currentQuestionIndex) / totalQuestions) * 100}%` }}
+                                style={{width: `${((currentQuestionIndex) / totalQuestions) * 100}%`}}
                             ></div>
                         </div>
                     </div>
 
                     {/* Question Content */}
                     <div className="flex-1 flex flex-col items-center justify-center p-4 max-w-3xl mx-auto w-full fade-in">
-                        
+
                         {/* Streak Badge */}
                         {streak >= 3 && (
                             <div className="mb-4 bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold animate-bounce shadow-lg flex items-center gap-2">
@@ -1499,22 +1452,22 @@
                         )}
 
                         <div className="bg-white rounded-2xl shadow-xl p-6 md:p-10 w-full relative overflow-hidden">
-                             {/* Watermark Icon */}
-                             <div className="absolute top-0 right-0 opacity-5 pointer-events-none p-4">
+                            {/* Watermark Icon */}
+                            <div className="absolute top-0 right-0 opacity-5 pointer-events-none p-4">
                                 <i className="fas fa-book-open text-9xl text-gray-100"></i>
                             </div>
 
                             <div className="flex justify-between items-center mb-4">
                                 <span className="text-sm font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
-                                   <i className="far fa-calendar-alt"></i> {year}
+                                    <i className="far fa-calendar-alt"></i> {year}
                                 </span>
-                                
+
                                 {/* ប៊ូតុងសញ្ញាផ្កាយ (Bookmark) */}
                                 <div className="flex items-center gap-3">
                                     <span className="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full font-bold uppercase shadow-sm">
                                         {category}
                                     </span>
-                                    <button 
+                                    <button
                                         onClick={onToggleBookmark}
                                         className={`text-2xl transition-transform transform hover:scale-125 focus:outline-none ${isBookmarked ? 'text-yellow-400 drop-shadow-md' : 'text-gray-200 hover:text-yellow-200'}`}
                                         title="កត់ត្រាសំណួរនេះទុក"
@@ -1523,7 +1476,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 leading-relaxed">
                                 {questionData?.question}
                             </h2>
@@ -1866,6 +1819,27 @@
             };
             // --- BOOKMARK LOGIC ---
             const [bookmarkedIds, setBookmarkedIds] = useState([]);
+
+            // --- បន្ថែម State ថ្មីនេះចូល ---
+            const [customVocab, setCustomVocab] = useState([]);
+            const [showAddFlashcard, setShowAddFlashcard] = useState(false);
+
+            // បញ្ចូលកូដនេះទៅក្នុង useEffect ដើមរបស់លោកគ្រូ
+            useEffect(() => {
+                if (localStorage.getItem('bac2_theme') === 'dark') {setIsDarkMode(true); document.body.classList.add('dark-mode');}
+                setBookmarkedIds(JSON.parse(localStorage.getItem('bac2_bookmarks') || '[]'));
+                // បន្ថែមបន្ទាត់នេះ
+                setCustomVocab(JSON.parse(localStorage.getItem('bac2_custom_vocab') || '[]'));
+            }, []);
+
+            // --- បន្ថែម Function ថ្មីសម្រាប់រក្សាទុកពាក្យ ---
+            const handleAddCustomVocab = (newVocab) => {
+                const updated = [newVocab, ...customVocab];
+                setCustomVocab(updated);
+                localStorage.setItem('bac2_custom_vocab', JSON.stringify(updated));
+            };
+
+            const combinedVocabList = [...customVocab, ...readingVocabData];
 
             // ទាញយក Bookmarks ពី LocalStorage ពេលបើកកម្មវិធី
             useEffect(() => {
@@ -2341,15 +2315,20 @@
                         <GrammarTipsScreen onBack={handleBackToTipsMenu} />
                     )}
 
-                    {gameState === 'vocab-list' && (
-                        <VocabularyListScreen onBack={handleBackToTipsMenu} />
-                    )}
-
                     {/* បន្ថែមចំណុចនេះ សម្រាប់ Flashcards */}
+                    {/* ជំនួសកន្លែងហៅ FlashcardScreen ចាស់ ដោយកូដនេះ */}
                     {gameState === 'flashcards' && (
                         <FlashcardScreen
-                            vocabList={vocabularyData}
-                            onBack={handleBackToTipsMenu}
+                            vocabList={combinedVocabList}
+                            onBack={() => setGameState('tips-menu')}
+                            onAddNew={() => setShowAddFlashcard(true)}
+                        />
+                    )}
+
+                    {showAddFlashcard && (
+                        <AddFlashcardModal
+                            onClose={() => setShowAddFlashcard(false)}
+                            onSave={handleAddCustomVocab}
                         />
                     )}
 
